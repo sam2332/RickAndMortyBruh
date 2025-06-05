@@ -8,9 +8,18 @@
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Male</bodyTypeFemale>
     <skillGains>
-      <li>Social=4</li>
-      <li>Intellectual=2</li>
+      <li>
+        <def>Social</def>
+        <amount>4</amount>
+      </li>
+      <li>
+        <def>Intellectual</def>
+        <amount>2</amount>
+      </li>
     </skillGains>
+    <spawnCategories>
+      <li>Civil</li>
+    </spawnCategories>
   </BackstoryDef>
 
   <BackstoryDef>
@@ -22,14 +31,26 @@
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Male</bodyTypeFemale>
     <skillGains>
-      <li>Social=6</li>
-      <li>Shooting=5</li>
-      <li>Intellectual=2</li>
+      <li>
+        <def>Social</def>
+        <amount>6</amount>
+      </li>
+      <li>
+        <def>Shooting</def>
+        <amount>5</amount>
+      </li>
+      <li>
+        <def>Intellectual</def>
+        <amount>2</amount>
+      </li>
     </skillGains>
-    <disabledWorkTags>
+    <workDisables>
       <li>ManualDumb</li>
       <li>Firefighting</li>
-    </disabledWorkTags>
+    </workDisables>
+    <spawnCategories>
+      <li>Civil</li>
+    </spawnCategories>
   </BackstoryDef>
 
   <!-- Rick Sanchez -->
@@ -42,9 +63,18 @@
     <bodyTypeMale>Thin</bodyTypeMale>
     <bodyTypeFemale>Thin</bodyTypeFemale>
     <skillGains>
-      <li>Intellectual=6</li>
-      <li>Chemical=3</li>
+      <li>
+        <def>Intellectual</def>
+        <amount>6</amount>
+      </li>
+      <li>
+        <def>Chemical</def>
+        <amount>3</amount>
+      </li>
     </skillGains>
+    <spawnCategories>
+      <li>Civil</li>
+    </spawnCategories>
   </BackstoryDef>
   <BackstoryDef>
     <defName>RickSanchezAdult</defName>
@@ -55,15 +85,27 @@
     <bodyTypeMale>Thin</bodyTypeMale>
     <bodyTypeFemale>Thin</bodyTypeFemale>
     <skillGains>
-      <li>Intellectual=8</li>
-      <li>Chemical=5</li>
-      <li>Shooting=2</li>
+      <li>
+        <def>Intellectual</def>
+        <amount>8</amount>
+      </li>
+      <li>
+        <def>Chemical</def>
+        <amount>5</amount>
+      </li>
+      <li>
+        <def>Shooting</def>
+        <amount>2</amount>
+      </li>
     </skillGains>
-    <disabledWorkTags>
+    <workDisables>
       <li>Cleaning</li>
       <li>Hauling</li>
       <li>Social</li>
-    </disabledWorkTags>
+    </workDisables>
+    <spawnCategories>
+      <li>Civil</li>
+    </spawnCategories>
   </BackstoryDef>
 
   <!-- Morty Smith -->
@@ -76,9 +118,18 @@
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Male</bodyTypeFemale>
     <skillGains>
-      <li>Social=2</li>
-      <li>Shooting=1</li>
+      <li>
+        <def>Social</def>
+        <amount>2</amount>
+      </li>
+      <li>
+        <def>Shooting</def>
+        <amount>1</amount>
+      </li>
     </skillGains>
+    <spawnCategories>
+      <li>Civil</li>
+    </spawnCategories>
   </BackstoryDef>
   <BackstoryDef>
     <defName>MortySmithAdult</defName>
@@ -89,13 +140,25 @@
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Male</bodyTypeFemale>
     <skillGains>
-      <li>Shooting=3</li>
-      <li>Animals=2</li>
-      <li>Social=1</li>
+      <li>
+        <def>Shooting</def>
+        <amount>3</amount>
+      </li>
+      <li>
+        <def>Animals</def>
+        <amount>2</amount>
+      </li>
+      <li>
+        <def>Social</def>
+        <amount>1</amount>
+      </li>
     </skillGains>
-    <disabledWorkTags>
+    <workDisables>
       <li>Intellectual</li>
-    </disabledWorkTags>
+    </workDisables>
+    <spawnCategories>
+      <li>Civil</li>
+    </spawnCategories>
   </BackstoryDef>
 
   <!-- Summer Smith -->
@@ -108,9 +171,18 @@
     <bodyTypeMale>Female</bodyTypeMale>
     <bodyTypeFemale>Female</bodyTypeFemale>
     <skillGains>
-      <li>Social=3</li>
-      <li>Shooting=1</li>
+      <li>
+        <def>Social</def>
+        <amount>3</amount>
+      </li>
+      <li>
+        <def>Shooting</def>
+        <amount>1</amount>
+      </li>
     </skillGains>
+    <spawnCategories>
+      <li>Civil</li>
+    </spawnCategories>
   </BackstoryDef>
   <BackstoryDef>
     <defName>SummerSmithAdult</defName>
@@ -121,10 +193,22 @@
     <bodyTypeMale>Female</bodyTypeMale>
     <bodyTypeFemale>Female</bodyTypeFemale>
     <skillGains>
-      <li>Shooting=3</li>
-      <li>Social=2</li>
-      <li>Medicine=1</li>
+      <li>
+        <def>Shooting</def>
+        <amount>3</amount>
+      </li>
+      <li>
+        <def>Social</def>
+        <amount>2</amount>
+      </li>
+      <li>
+        <def>Medicine</def>
+        <amount>1</amount>
+      </li>
     </skillGains>
+    <spawnCategories>
+      <li>Civil</li>
+    </spawnCategories>
   </BackstoryDef>
 
   <!-- Beth Smith -->
@@ -137,9 +221,18 @@
     <bodyTypeMale>Female</bodyTypeMale>
     <bodyTypeFemale>Female</bodyTypeFemale>
     <skillGains>
-      <li>Animals=3</li>
-      <li>Intellectual=2</li>
+      <li>
+        <def>Animals</def>
+        <amount>3</amount>
+      </li>
+      <li>
+        <def>Intellectual</def>
+        <amount>2</amount>
+      </li>
     </skillGains>
+    <spawnCategories>
+      <li>Civil</li>
+    </spawnCategories>
   </BackstoryDef>
   <BackstoryDef>
     <defName>BethSmithAdult</defName>
@@ -150,13 +243,25 @@
     <bodyTypeMale>Female</bodyTypeMale>
     <bodyTypeFemale>Female</bodyTypeFemale>
     <skillGains>
-      <li>Medicine=4</li>
-      <li>Animals=2</li>
-      <li>Intellectual=1</li>
+      <li>
+        <def>Medicine</def>
+        <amount>4</amount>
+      </li>
+      <li>
+        <def>Animals</def>
+        <amount>2</amount>
+      </li>
+      <li>
+        <def>Intellectual</def>
+        <amount>1</amount>
+      </li>
     </skillGains>
-    <disabledWorkTags>
+    <workDisables>
       <li>Firefighting</li>
-    </disabledWorkTags>
+    </workDisables>
+    <spawnCategories>
+      <li>Civil</li>
+    </spawnCategories>
   </BackstoryDef>
 
   <!-- Jerry Smith -->
@@ -169,8 +274,14 @@
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Male</bodyTypeFemale>
     <skillGains>
-      <li>Social=1</li>
+      <li>
+        <def>Social</def>
+        <amount>1</amount>
+      </li>
     </skillGains>
+    <spawnCategories>
+      <li>Civil</li>
+    </spawnCategories>
   </BackstoryDef>
   <BackstoryDef>
     <defName>JerrySmithAdult</defName>
@@ -181,12 +292,21 @@
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Male</bodyTypeFemale>
     <skillGains>
-      <li>Social=2</li>
-      <li>Plants=1</li>
+      <li>
+        <def>Social</def>
+        <amount>2</amount>
+      </li>
+      <li>
+        <def>Plants</def>
+        <amount>1</amount>
+      </li>
     </skillGains>
-    <disabledWorkTags>
+    <workDisables>
       <li>Violent</li>
       <li>Intellectual</li>
-    </disabledWorkTags>
+    </workDisables>
+    <spawnCategories>
+      <li>Civil</li>
+    </spawnCategories>
   </BackstoryDef>
 </Defs>

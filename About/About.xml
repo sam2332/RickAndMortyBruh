@@ -1,6 +1,10 @@
 <ModMetaData>
   <name>President Curtis Backstory</name>
   <author>Lily</author>
+  
   <description>Adds President Curtis from Rick and Morty as a backstory.</description>
   <packageId>lily.prescurtis</packageId>
+  <supportedVersions>
+    <li>1.5</li>
+  </supportedVersions>
 </ModMetaData>
