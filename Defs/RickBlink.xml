@@ -3,13 +3,12 @@
     <defName>RickBlink</defName>
     <label>open portal</label>
     <description>Instantly teleports the user to a target location.</description>
-    <abilityClass>Ability_Blink</abilityClass>
-    <warmupTicks>30</warmupTicks>
-    <cooldownTicks>600</cooldownTicks>
-    <range>50</range>
-    <targetCategory>Cell</targetCategory>
-    <ai_IsCombatAbility>true</ai_IsCombatAbility>
+    <abilityClass>Ability_ChaosSkip</abilityClass>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>50</range>
+      <warmupTime>0.5</warmupTime>
+    </verbProperties>
     <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
-    <requiredMod>Royalty</requiredMod>
   </AbilityDef>
 </Defs>
