@@ -1,0 +1,21 @@
+<Defs>
+  <ThingDef ParentName="BaseWeapon">
+    <defName>RickPortalGun</defName>
+    <label>portal gun</label>
+    <description>A weird tech device that opens rifts in space-time. Can teleport you instantly.</description>
+    <graphicData>
+      <texPath>Things/Item/Equipment/PortalGun</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <thingClass>VerbOwnerWeapon</thingClass>
+    <verbs>
+      <li>
+        <verbClass>Verb_CastAbility</verbClass>
+        <ability>RickPortalAbility</ability>
+      </li>
+    </verbs>
+    <weaponTags>
+      <li>TechPortal</li>
+    </weaponTags>
+  </ThingDef>
+</Defs>

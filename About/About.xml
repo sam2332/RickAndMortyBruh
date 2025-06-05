@@ -1,9 +1,10 @@
 <ModMetaData>
-  <name>President Curtis Backstory</name>
+  <name>Rick and Morty Bruh</name>
   <author>Lily</author>
   
-  <description>Adds President Curtis from Rick and Morty as a backstory.</description>
-  <packageId>lily.prescurtis</packageId>
+  <description>Adds Rick and Morty characters, items, and backstories to RimWorld.</description>
+  <packageId>lily.rickandmorty</packageId>
+
   <supportedVersions>
     <li>1.5</li>
   </supportedVersions>

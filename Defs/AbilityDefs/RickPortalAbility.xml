@@ -1,0 +1,26 @@
+<Defs>
+  <AbilityDef>
+    <defName>RickPortalAbility</defName>
+    <label>open portal</label>
+    <description>Instantly teleports the user to a nearby location.</description>
+    <abilityClass>VFECore.Ability_Teleport</abilityClass>
+    <targetingParams>
+      <canTargetLocations>true</canTargetLocations>
+      <canTargetSelf>true</canTargetSelf>
+    </targetingParams>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>60</range>
+      <warmupTime>0.5</warmupTime>
+      <cooldownTime>10</cooldownTime>
+    </verbProperties>
+    <comps>
+      <li Class="VFECore.AbilityCompProperties_Cooldown">
+        <cooldownTicks>600</cooldownTicks>
+      </li>
+      <li Class="VFECore.AbilityCompProperties_Teleport">
+        <targetSelf>true</targetSelf>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

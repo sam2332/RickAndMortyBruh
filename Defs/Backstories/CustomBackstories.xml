@@ -11,6 +11,7 @@
       <Social>4</Social>
       <Intellectual>2</Intellectual>
     </skillGains>
+    <shuffleable>false</shuffleable>
     <spawnCategories>
       <li>Civil</li>
     </spawnCategories>
@@ -33,6 +34,7 @@
       <li>ManualDumb</li>
       <li>Firefighting</li>
     </workDisables>
+    <shuffleable>false</shuffleable>
     <spawnCategories>
       <li>Civil</li>
     </spawnCategories>
@@ -49,8 +51,8 @@
     <bodyTypeFemale>Thin</bodyTypeFemale>
     <skillGains>
       <Intellectual>6</Intellectual>
-      <Intellectual>3</Intellectual>
     </skillGains>
+    <shuffleable>false</shuffleable>
     <spawnCategories>
       <li>Civil</li>
     </spawnCategories>
@@ -65,7 +67,6 @@
     <bodyTypeFemale>Thin</bodyTypeFemale>
     <skillGains>
       <Intellectual>8</Intellectual>
-      <Intellectual>5</Intellectual>
       <Shooting>2</Shooting>
     </skillGains>
     <workDisables>
@@ -73,6 +74,7 @@
       <li>Hauling</li>
       <li>Social</li>
     </workDisables>
+    <shuffleable>false</shuffleable>
     <spawnCategories>
       <li>Civil</li>
     </spawnCategories>
@@ -91,6 +93,7 @@
       <Social>2</Social>
       <Shooting>1</Shooting>
     </skillGains>
+    <shuffleable>false</shuffleable>
     <spawnCategories>
       <li>Civil</li>
     </spawnCategories>
@@ -111,6 +114,7 @@
     <workDisables>
       <li>Intellectual</li>
     </workDisables>
+    <shuffleable>false</shuffleable>
     <spawnCategories>
       <li>Civil</li>
     </spawnCategories>
@@ -129,6 +133,7 @@
       <Social>3</Social>
       <Shooting>1</Shooting>
     </skillGains>
+    <shuffleable>false</shuffleable>
     <spawnCategories>
       <li>Civil</li>
     </spawnCategories>
@@ -146,6 +151,7 @@
       <Social>2</Social>
       <Medicine>1</Medicine>
     </skillGains>
+    <shuffleable>false</shuffleable>
     <spawnCategories>
       <li>Civil</li>
     </spawnCategories>
@@ -164,6 +170,7 @@
       <Animals>3</Animals>
       <Intellectual>2</Intellectual>
     </skillGains>
+    <shuffleable>false</shuffleable>
     <spawnCategories>
       <li>Civil</li>
     </spawnCategories>
@@ -184,6 +191,7 @@
     <workDisables>
       <li>Firefighting</li>
     </workDisables>
+    <shuffleable>false</shuffleable>
     <spawnCategories>
       <li>Civil</li>
     </spawnCategories>
@@ -201,6 +209,7 @@
     <skillGains>
       <Social>1</Social>
     </skillGains>
+    <shuffleable>false</shuffleable>
     <spawnCategories>
       <li>Civil</li>
     </spawnCategories>
@@ -221,6 +230,7 @@
       <li>Violent</li>
       <li>Intellectual</li>
     </workDisables>
+    <shuffleable>false</shuffleable>
     <spawnCategories>
       <li>Civil</li>
     </spawnCategories>

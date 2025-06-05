@@ -20,7 +20,7 @@
     <diseaseMtbDays>35</diseaseMtbDays>
     <wildPlantRegrowDays>5</wildPlantRegrowDays>
     <forageability>0.6</forageability>
-    <foragedFood>EggsFertilizedAny</foragedFood>
+    <foragedFood>EggChickenUnfertilized</foragedFood>
   </BiomeDef>
   <BiomeDef>
     <defName>Biome_GearWorld</defName>

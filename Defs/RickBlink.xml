@@ -1,0 +1,15 @@
+<Defs>
+  <AbilityDef>
+    <defName>RickBlink</defName>
+    <label>open portal</label>
+    <description>Instantly teleports the user to a target location.</description>
+    <abilityClass>Ability_Blink</abilityClass>
+    <warmupTicks>30</warmupTicks>
+    <cooldownTicks>600</cooldownTicks>
+    <range>50</range>
+    <targetCategory>Cell</targetCategory>
+    <ai_IsCombatAbility>true</ai_IsCombatAbility>
+    <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+    <requiredMod>Royalty</requiredMod>
+  </AbilityDef>
+</Defs>
