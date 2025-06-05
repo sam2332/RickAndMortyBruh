@@ -8,14 +8,8 @@
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Male</bodyTypeFemale>
     <skillGains>
-      <li>
-        <def>Social</def>
-        <amount>4</amount>
-      </li>
-      <li>
-        <def>Intellectual</def>
-        <amount>2</amount>
-      </li>
+      <Social>4</Social>
+      <Intellectual>2</Intellectual>
     </skillGains>
     <spawnCategories>
       <li>Civil</li>
@@ -31,18 +25,9 @@
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Male</bodyTypeFemale>
     <skillGains>
-      <li>
-        <def>Social</def>
-        <amount>6</amount>
-      </li>
-      <li>
-        <def>Shooting</def>
-        <amount>5</amount>
-      </li>
-      <li>
-        <def>Intellectual</def>
-        <amount>2</amount>
-      </li>
+      <Social>6</Social>
+      <Shooting>5</Shooting>
+      <Intellectual>2</Intellectual>
     </skillGains>
     <workDisables>
       <li>ManualDumb</li>
@@ -63,14 +48,8 @@
     <bodyTypeMale>Thin</bodyTypeMale>
     <bodyTypeFemale>Thin</bodyTypeFemale>
     <skillGains>
-      <li>
-        <def>Intellectual</def>
-        <amount>6</amount>
-      </li>
-      <li>
-        <def>Chemical</def>
-        <amount>3</amount>
-      </li>
+      <Intellectual>6</Intellectual>
+      <Chemical>3</Chemical>
     </skillGains>
     <spawnCategories>
       <li>Civil</li>
@@ -85,18 +64,9 @@
     <bodyTypeMale>Thin</bodyTypeMale>
     <bodyTypeFemale>Thin</bodyTypeFemale>
     <skillGains>
-      <li>
-        <def>Intellectual</def>
-        <amount>8</amount>
-      </li>
-      <li>
-        <def>Chemical</def>
-        <amount>5</amount>
-      </li>
-      <li>
-        <def>Shooting</def>
-        <amount>2</amount>
-      </li>
+      <Intellectual>8</Intellectual>
+      <Chemical>5</Chemical>
+      <Shooting>2</Shooting>
     </skillGains>
     <workDisables>
       <li>Cleaning</li>
@@ -118,14 +88,8 @@
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Male</bodyTypeFemale>
     <skillGains>
-      <li>
-        <def>Social</def>
-        <amount>2</amount>
-      </li>
-      <li>
-        <def>Shooting</def>
-        <amount>1</amount>
-      </li>
+      <Social>2</Social>
+      <Shooting>1</Shooting>
     </skillGains>
     <spawnCategories>
       <li>Civil</li>
@@ -140,18 +104,9 @@
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Male</bodyTypeFemale>
     <skillGains>
-      <li>
-        <def>Shooting</def>
-        <amount>3</amount>
-      </li>
-      <li>
-        <def>Animals</def>
-        <amount>2</amount>
-      </li>
-      <li>
-        <def>Social</def>
-        <amount>1</amount>
-      </li>
+      <Shooting>3</Shooting>
+      <Animals>2</Animals>
+      <Social>1</Social>
     </skillGains>
     <workDisables>
       <li>Intellectual</li>
@@ -171,14 +126,8 @@
     <bodyTypeMale>Female</bodyTypeMale>
     <bodyTypeFemale>Female</bodyTypeFemale>
     <skillGains>
-      <li>
-        <def>Social</def>
-        <amount>3</amount>
-      </li>
-      <li>
-        <def>Shooting</def>
-        <amount>1</amount>
-      </li>
+      <Social>3</Social>
+      <Shooting>1</Shooting>
     </skillGains>
     <spawnCategories>
       <li>Civil</li>
@@ -193,18 +142,9 @@
     <bodyTypeMale>Female</bodyTypeMale>
     <bodyTypeFemale>Female</bodyTypeFemale>
     <skillGains>
-      <li>
-        <def>Shooting</def>
-        <amount>3</amount>
-      </li>
-      <li>
-        <def>Social</def>
-        <amount>2</amount>
-      </li>
-      <li>
-        <def>Medicine</def>
-        <amount>1</amount>
-      </li>
+      <Shooting>3</Shooting>
+      <Social>2</Social>
+      <Medicine>1</Medicine>
     </skillGains>
     <spawnCategories>
       <li>Civil</li>
@@ -221,14 +161,8 @@
     <bodyTypeMale>Female</bodyTypeMale>
     <bodyTypeFemale>Female</bodyTypeFemale>
     <skillGains>
-      <li>
-        <def>Animals</def>
-        <amount>3</amount>
-      </li>
-      <li>
-        <def>Intellectual</def>
-        <amount>2</amount>
-      </li>
+      <Animals>3</Animals>
+      <Intellectual>2</Intellectual>
     </skillGains>
     <spawnCategories>
       <li>Civil</li>
@@ -243,18 +177,9 @@
     <bodyTypeMale>Female</bodyTypeMale>
     <bodyTypeFemale>Female</bodyTypeFemale>
     <skillGains>
-      <li>
-        <def>Medicine</def>
-        <amount>4</amount>
-      </li>
-      <li>
-        <def>Animals</def>
-        <amount>2</amount>
-      </li>
-      <li>
-        <def>Intellectual</def>
-        <amount>1</amount>
-      </li>
+      <Medicine>4</Medicine>
+      <Animals>2</Animals>
+      <Intellectual>1</Intellectual>
     </skillGains>
     <workDisables>
       <li>Firefighting</li>
@@ -274,10 +199,7 @@
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Male</bodyTypeFemale>
     <skillGains>
-      <li>
-        <def>Social</def>
-        <amount>1</amount>
-      </li>
+      <Social>1</Social>
     </skillGains>
     <spawnCategories>
       <li>Civil</li>
@@ -292,14 +214,8 @@
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Male</bodyTypeFemale>
     <skillGains>
-      <li>
-        <def>Social</def>
-        <amount>2</amount>
-      </li>
-      <li>
-        <def>Plants</def>
-        <amount>1</amount>
-      </li>
+      <Social>2</Social>
+      <Plants>1</Plants>
     </skillGains>
     <workDisables>
       <li>Violent</li>

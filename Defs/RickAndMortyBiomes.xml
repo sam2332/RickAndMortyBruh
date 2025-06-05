@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <BiomeDef>
+    <defName>Biome_Earth</defName>
+    <label>Earth</label>
+    <description>The original human homeworld. Diverse climates, familiar plants and animals, and a balanced ecosystem. Feels just like home.</description>
+    <animalDensity>1.0</animalDensity>
+    <plantDensity>1.0</plantDensity>
+    <diseaseMtbDays>40</diseaseMtbDays>
+    <wildPlantRegrowDays>7</wildPlantRegrowDays>
+    <forageability>0.5</forageability>
+    <foragedFood>Berries</foragedFood>
+  </BiomeDef>
+  <BiomeDef>
+    <defName>Biome_BirdWorld</defName>
+    <label>Bird World</label>
+    <description>A planet ruled by intelligent birds. Lush forests, abundant nests, and the constant sound of squawking. Watch out for territorial flocks!</description>
+    <animalDensity>2.5</animalDensity>
+    <plantDensity>1.8</plantDensity>
+    <diseaseMtbDays>35</diseaseMtbDays>
+    <wildPlantRegrowDays>5</wildPlantRegrowDays>
+    <forageability>0.6</forageability>
+    <foragedFood>Eggs</foragedFood>
+  </BiomeDef>
+  <BiomeDef>
+    <defName>Biome_GearWorld</defName>
+    <label>Gear World</label>
+    <description>A mechanical planet covered in gears, cogs, and metal flora. Life here is part organic, part machine. Expect strange resources and hazards.</description>
+    <animalDensity>0.6</animalDensity>
+    <plantDensity>0.4</plantDensity>
+    <diseaseMtbDays>60</diseaseMtbDays>
+    <wildPlantRegrowDays>20</wildPlantRegrowDays>
+    <forageability>0.1</forageability>
+    <foragedFood>Steel</foragedFood>
+  </BiomeDef>
+</Defs>
