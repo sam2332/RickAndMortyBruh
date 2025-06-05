@@ -49,7 +49,7 @@
     <bodyTypeFemale>Thin</bodyTypeFemale>
     <skillGains>
       <Intellectual>6</Intellectual>
-      <Chemical>3</Chemical>
+      <Intellectual>3</Intellectual>
     </skillGains>
     <spawnCategories>
       <li>Civil</li>
@@ -65,7 +65,7 @@
     <bodyTypeFemale>Thin</bodyTypeFemale>
     <skillGains>
       <Intellectual>8</Intellectual>
-      <Chemical>5</Chemical>
+      <Intellectual>5</Intellectual>
       <Shooting>2</Shooting>
     </skillGains>
     <workDisables>

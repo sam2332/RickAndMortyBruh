@@ -9,7 +9,7 @@
     <diseaseMtbDays>40</diseaseMtbDays>
     <wildPlantRegrowDays>7</wildPlantRegrowDays>
     <forageability>0.5</forageability>
-    <foragedFood>Berries</foragedFood>
+    <foragedFood>RawBerries</foragedFood>
   </BiomeDef>
   <BiomeDef>
     <defName>Biome_BirdWorld</defName>
@@ -20,7 +20,7 @@
     <diseaseMtbDays>35</diseaseMtbDays>
     <wildPlantRegrowDays>5</wildPlantRegrowDays>
     <forageability>0.6</forageability>
-    <foragedFood>Eggs</foragedFood>
+    <foragedFood>EggsFertilizedAny</foragedFood>
   </BiomeDef>
   <BiomeDef>
     <defName>Biome_GearWorld</defName>
