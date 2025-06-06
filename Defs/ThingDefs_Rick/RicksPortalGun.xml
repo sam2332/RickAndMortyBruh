@@ -11,13 +11,17 @@
       <Mass>2.5</Mass>
     </statBases>
     <techLevel>Ultra</techLevel>
-    <thingClass>ThingWithComps</thingClass>
-    <verbs>
+    <thingClass>ThingWithComps</thingClass>    <verbs>
       <li>
         <verbClass>RickAndMortyBruh.Verb_CastAbilityRickPortal</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
         <range>60</range>
         <warmupTime>0.5</warmupTime>
+        <targetParams>
+          <canTargetLocations>true</canTargetLocations>
+          <canTargetPawns>false</canTargetPawns>
+          <canTargetBuildings>false</canTargetBuildings>
+        </targetParams>
       </li>
     </verbs>
     <weaponTags>

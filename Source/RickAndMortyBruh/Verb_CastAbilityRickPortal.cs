@@ -6,7 +6,7 @@ namespace RickAndMortyBruh
 {
     public class Verb_CastAbilityRickPortal : Verb
     {
-        public string abilityDef; // Field to store the abilityDef
+        public string abilityDef;
 
         public void LoadDataFromXmlCustom(XmlNode xmlRoot)
         {
@@ -20,27 +20,44 @@ namespace RickAndMortyBruh
         public void InitializeFromAbilityDef(string defName)
         {
             abilityDef = defName;
-        }        // Custom targeting logic for teleportation
+        }
+
         protected override bool TryCastShot()
         {
-            if (CurrentTarget.HasThing && CurrentTarget.Thing is Pawn targetPawn)
+            Pawn casterPawn = caster as Pawn;
+            if (casterPawn == null)
             {
-                // Teleport the target pawn to a random nearby location
-                IntVec3 newLocation = CellFinder.RandomClosewalkCellNear(targetPawn.Position, targetPawn.Map, 10);
-                targetPawn.Position = newLocation;
-                Log.Message("Teleported " + targetPawn.Name + " to " + newLocation);
-                return true;
-            }
-            if (caster != null)
-            {
-                // Teleport the caster to a random nearby location
-                IntVec3 newLocation = CellFinder.RandomClosewalkCellNear(caster.Position, caster.Map, 10);
-                caster.Position = newLocation;
-                Log.Message("Teleported caster to " + newLocation);
-                return true;
+                Log.Warning("Portal gun failed to teleport: Caster is not a pawn.");
+                return false;
             }
 
-            Log.Warning("Portal gun failed to teleport: No valid target.");
+            IntVec3 targetCell = CurrentTarget.Cell;
+
+            if (targetCell.IsValid && targetCell.InBounds(casterPawn.Map))
+            {
+                if (targetCell.Standable(casterPawn.Map))
+                {
+                    casterPawn.Position = targetCell;
+                    FleckMaker.ThrowSmoke(targetCell.ToVector3(), casterPawn.Map, 1.0f);
+                    FleckMaker.ThrowMicroSparks(targetCell.ToVector3(), casterPawn.Map);
+                    Log.Message("Teleported " + casterPawn.LabelShort + " to " + targetCell);
+                    return true;
+                }
+                else
+                {
+                    IntVec3 standableCell;
+                    if (CellFinder.TryFindRandomCellNear(targetCell, casterPawn.Map, 3, c => c.Standable(casterPawn.Map), out standableCell))
+                    {
+                        casterPawn.Position = standableCell;
+                        FleckMaker.ThrowSmoke(standableCell.ToVector3(), casterPawn.Map, 1.0f);
+                        FleckMaker.ThrowMicroSparks(standableCell.ToVector3(), casterPawn.Map);
+                        Log.Message("Teleported " + casterPawn.LabelShort + " to " + standableCell + " (near target)");
+                        return true;
+                    }
+                }
+            }
+
+            Log.Warning("Portal gun failed to teleport: No valid target cell.");
             return false;
         }
     }
