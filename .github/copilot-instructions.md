@@ -6,7 +6,7 @@ you can test compile with cd "c:\Program Files (x86)\Steam\steamapps\common\RimW
 we are writing c sharp for .net 4.7.2
 
 using c# 4.7.2
-
+Base game defs are located in "c:\Program Files (x86)\Steam\steamapps\common\RimWorld\Data\Core\Defs"
 you are using windows 10 and powershell
 do not use string interpolation in c#
 

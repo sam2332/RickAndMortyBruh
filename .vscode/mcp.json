@@ -1,6 +1,6 @@
 {
     "servers": {
-        "Search": {
+        "Search-Internet": {
             "type": "stdio",
             "command": "node",
             "args": [

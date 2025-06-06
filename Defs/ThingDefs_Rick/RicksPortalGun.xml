@@ -1,26 +1,37 @@
 <Defs>
-  <ThingDef ParentName="BaseWeapon" MayRequire="Ludeon.RimWorld.Royalty">
+  <!-- Portal Gun as Weapon -->
+  <ThingDef ParentName="BaseWeapon">
     <defName>RickPortalGun</defName>
-    <label>portal gun</label>
-    <description>A weird tech device that opens rifts in space-time. Can teleport you instantly.</description>
+    <label>portal gun (weapon)</label>
+    <description>A weird tech device that opens rifts in space-time. Can teleport you instantly. Takes up your weapon slot.</description>
     <graphicData>
       <texPath>Things/Item/Equipment/PortalGun</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <statBases>
       <Mass>2.5</Mass>
+      <MarketValue>1500</MarketValue>
     </statBases>
     <techLevel>Ultra</techLevel>
     <thingClass>ThingWithComps</thingClass>
+    <thingCategories>
+      <li>Weapons</li>
+    </thingCategories>
+    <tradeTags>
+      <li>Weapon</li>
+      <li>TechHediff</li>
+    </tradeTags>
     <verbs>
       <li>
         <verbClass>RickAndMortyBruh.Verb_CastAbilityRickPortal</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
-        <range>999</range>        <warmupTime>0.5</warmupTime>      <targetParams>
-        <canTargetLocations>true</canTargetLocations>
-        <canTargetPawns>true</canTargetPawns>
-        <canTargetBuildings>false</canTargetBuildings>
-      </targetParams>
+        <range>999</range>
+        <warmupTime>0.5</warmupTime>
+        <targetParams>
+          <canTargetLocations>true</canTargetLocations>
+          <canTargetPawns>true</canTargetPawns>
+          <canTargetBuildings>false</canTargetBuildings>
+        </targetParams>
       </li>
     </verbs>
     <weaponTags>

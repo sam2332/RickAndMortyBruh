@@ -1,0 +1,20 @@
+<Defs>
+  <HediffDef>
+    <defName>RickPortalGloveHediff</defName>
+    <label>portal glove equipped</label>
+    <description>This pawn has Rick's portal technology at their fingertips. Can open portals for instant teleportation and target vaporization.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.8, 0.8, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <maxSeverity>1.0</maxSeverity>
+    <comps>
+      <li Class="RickAndMortyBruh.HediffCompProperties_Abilities">
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>portal tech active</label>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

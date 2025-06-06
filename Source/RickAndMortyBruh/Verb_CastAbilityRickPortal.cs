@@ -93,6 +93,8 @@ namespace RickAndMortyBruh
 
                 if (targetCell.Standable(casterPawn.Map))                {
                     casterPawn.Position = targetCell;
+                    casterPawn.pather.StopDead();
+                    casterPawn.Notify_Teleported();
                     FleckMaker.ThrowSmoke(targetCell.ToVector3(), casterPawn.Map, 1.0f);
                     FleckMaker.ThrowMicroSparks(targetCell.ToVector3(), casterPawn.Map);                    Log.Message("Teleported " + casterPawn.LabelShort + " to " + targetCell);
                     
@@ -103,6 +105,8 @@ namespace RickAndMortyBruh
                     IntVec3 standableCell;
                     if (CellFinder.TryFindRandomCellNear(targetCell, casterPawn.Map, 3, c => c.Standable(casterPawn.Map), out standableCell))                    {
                         casterPawn.Position = standableCell;
+                        casterPawn.pather.StopDead();
+                        casterPawn.Notify_Teleported();
                         FleckMaker.ThrowSmoke(standableCell.ToVector3(), casterPawn.Map, 1.0f);
                         FleckMaker.ThrowMicroSparks(standableCell.ToVector3(), casterPawn.Map);                        Log.Message("Teleported " + casterPawn.LabelShort + " to " + standableCell + " (near target)");
                         

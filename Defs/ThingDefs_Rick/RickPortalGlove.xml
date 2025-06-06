@@ -1,0 +1,80 @@
+<Defs>
+  <!-- Portal Gun as Apparel (Glove) -->
+  <ThingDef ParentName="ApparelBase">
+    <defName>RickPortalGlove</defName>
+    <label>portal glove</label>
+    <description>Rick's portal technology miniaturized into a wearable glove. Allows instant teleportation and vaporization of targets while keeping your hands free for other weapons. Wubba lubba dub dub!</description>
+    <graphicData>
+      <texPath>Things/Item/Equipment/PortalGun</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <WorkToMake>5000</WorkToMake>
+      <Mass>0.5</Mass>
+      <Flammability>0.1</Flammability>
+      <ArmorRating_Sharp>0.02</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.02</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.1</ArmorRating_Heat>
+      <Insulation_Cold>2</Insulation_Cold>
+      <EquipDelay>1</EquipDelay>
+      <MarketValue>2000</MarketValue>
+    </statBases>
+    <techLevel>Ultra</techLevel>
+    <thingCategories>
+      <li>Apparel</li>
+    </thingCategories>
+    <tradeTags>
+      <li>Clothing</li>
+      <li>TechHediff</li>
+    </tradeTags>
+    <generateCommonality>0.1</generateCommonality>
+    <colorGenerator Class="ColorGenerator_StandardApparel" />    <apparel>
+      <bodyPartGroups>
+        <li>Hands</li>
+        <li>LeftHand</li>
+        <li>RightHand</li>
+        <li>Arms</li>
+        <li>Shoulders</li>
+      </bodyPartGroups>
+      <wornGraphicPath>Things/Item/Equipment/PortalGun</wornGraphicPath>
+      <layers>
+        <li>Middle</li>
+      </layers>
+      <tags>
+        <li>RickTech</li>
+      </tags>
+      <defaultOutfitTags>
+        <li>Worker</li>
+        <li>Soldier</li>
+      </defaultOutfitTags>
+    </apparel>
+    <equippedStatOffsets>
+      <WorkSpeedGlobal>0.05</WorkSpeedGlobal>
+    </equippedStatOffsets>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Smith</soundWorking>
+      <recipeUsers>
+        <li>ElectricSmithy</li>
+        <li>FabricationBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>15</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <costList>
+      <Steel>25</Steel>
+      <Plasteel>15</Plasteel>
+      <Gold>5</Gold>
+      <ComponentSpacer>2</ComponentSpacer>
+    </costList>
+    <comps>
+      <li Class="RickAndMortyBruh.CompProperties_ApparelHediff">
+        <hediffDef>RickPortalGloveHediff</hediffDef>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>
