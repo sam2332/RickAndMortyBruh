@@ -6,6 +6,7 @@
       <verbClass>RickAndMortyBruh.Verb_CastAbilityRickPortal</verbClass>
       <range>60</range>
       <warmupTime>0.5</warmupTime>
+<displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
       <targetParams>
         <canTargetLocations>true</canTargetLocations>
         <canTargetPawns>false</canTargetPawns>
