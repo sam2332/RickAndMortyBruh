@@ -16,13 +16,11 @@
       <li>
         <verbClass>RickAndMortyBruh.Verb_CastAbilityRickPortal</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
-        <range>999</range>
-        <warmupTime>0.5</warmupTime>
-        <targetParams>
-          <canTargetLocations>true</canTargetLocations>
-          <canTargetPawns>false</canTargetPawns>
-          <canTargetBuildings>false</canTargetBuildings>
-        </targetParams>
+        <range>999</range>        <warmupTime>0.5</warmupTime>      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+      </targetParams>
       </li>
     </verbs>
     <weaponTags>

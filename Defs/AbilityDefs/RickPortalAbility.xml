@@ -2,15 +2,15 @@
   <AbilityDef>
     <defName>RickPortalAbility</defName>
     <label>open portal</label>
-    <description>Teleports the caster to a target location.</description>
-    <verbProperties>
+    <description>Teleports the caster to a target location.</description>    <verbProperties>
       <verbClass>RickAndMortyBruh.Verb_CastAbilityRickPortal</verbClass>
-      <range>60</range>
-      <warmupTime>0.5</warmupTime>
-      <targetParams>
+      <range>999</range>
+      <warmupTime>0.5</warmupTime><targetParams>
         <canTargetLocations>true</canTargetLocations>
-        <canTargetPawns>false</canTargetPawns>
+        <canTargetPawns>true</canTargetPawns>
         <canTargetBuildings>false</canTargetBuildings>
+        <canTargetFires>false</canTargetFires>
+        <neverTargetIncapacitated>false</neverTargetIncapacitated>
       </targetParams>
     </verbProperties>
     <comps>
