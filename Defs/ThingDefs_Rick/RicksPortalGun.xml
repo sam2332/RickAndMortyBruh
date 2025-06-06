@@ -15,7 +15,7 @@
       <li>
         <verbClass>RickAndMortyBruh.Verb_CastAbilityRickPortal</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
-        <range>60</range>
+        <range>999</range>
         <warmupTime>0.5</warmupTime>
         <targetParams>
           <canTargetLocations>true</canTargetLocations>

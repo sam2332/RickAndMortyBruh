@@ -41,7 +41,7 @@ namespace RickAndMortyBruh
                     FleckMaker.ThrowSmoke(targetCell.ToVector3(), casterPawn.Map, 1.0f);
                     FleckMaker.ThrowMicroSparks(targetCell.ToVector3(), casterPawn.Map);
                     Log.Message("Teleported " + casterPawn.LabelShort + " to " + targetCell);
-                    return true;
+                    return true; // Stop firing after teleportation
                 }
                 else
                 {
@@ -52,7 +52,7 @@ namespace RickAndMortyBruh
                         FleckMaker.ThrowSmoke(standableCell.ToVector3(), casterPawn.Map, 1.0f);
                         FleckMaker.ThrowMicroSparks(standableCell.ToVector3(), casterPawn.Map);
                         Log.Message("Teleported " + casterPawn.LabelShort + " to " + standableCell + " (near target)");
-                        return true;
+                        return true; // Stop firing after teleportation
                     }
                 }
             }
