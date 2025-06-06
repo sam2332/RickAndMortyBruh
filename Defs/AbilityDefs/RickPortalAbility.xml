@@ -2,14 +2,17 @@
   <AbilityDef>
     <defName>RickPortalAbility</defName>
     <label>open portal</label>
-    <description>Instantly teleports the user to a nearby location.</description>
-    <abilityClass  MayRequire="Ludeon.RimWorld.Royalty">Ability_ChaosSkip</abilityClass>
+    <description>Teleports the caster to a target location.</description>
     <verbProperties>
-      <verbClass>Verb_CastAbility</verbClass>
+      <verbClass>RickAndMortyBruh.Verb_CastAbilityRickPortal</verbClass>
       <range>60</range>
       <warmupTime>0.5</warmupTime>
     </verbProperties>
     <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
-    
+    <comps>
+      <li Class="CompProperties_AbilityTeleport">
+        <compClass>CompAbilityEffect_Teleport</compClass>
+      </li>
+    </comps>
   </AbilityDef>
 </Defs>

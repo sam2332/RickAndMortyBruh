@@ -44,7 +44,7 @@
   <BackstoryDef>
     <defName>RickSanchezChild</defName>
     <title>Mad Science Prodigy</title>
-    <titleShort>Rick</titleShort>
+    <titleShort>Rick (Child)</titleShort>
     <baseDesc>Rick was building death rays before he could walk. School was for Mortys. He learned to question everything—especially authority.</baseDesc>
     <slot>Childhood</slot>
     <bodyTypeMale>Thin</bodyTypeMale>
@@ -60,7 +60,7 @@
   <BackstoryDef>
     <defName>RickSanchezAdult</defName>
     <title>Interdimensional Scientist</title>
-    <titleShort>Rick</titleShort>
+    <titleShort>Rick (Adult)</titleShort>
     <baseDesc>Inventor, destroyer, and the galaxy’s worst grandpa. Rick’s adventures left him with a portal gun, a flask, and a total disregard for safety protocols. Wubba lubba dub dub!</baseDesc>
     <slot>Adulthood</slot>
     <bodyTypeMale>Thin</bodyTypeMale>
@@ -84,7 +84,7 @@
   <BackstoryDef>
     <defName>MortySmithChild</defName>
     <title>Awkward Teen</title>
-    <titleShort>Morty</titleShort>
+    <titleShort>Morty (Child)</titleShort>
     <baseDesc>Morty just wanted a normal life, but instead got dragged into Rick’s chaos. He learned to run fast and question reality.</baseDesc>
     <slot>Childhood</slot>
     <bodyTypeMale>Male</bodyTypeMale>
@@ -101,7 +101,7 @@
   <BackstoryDef>
     <defName>MortySmithAdult</defName>
     <title>Reluctant Adventurer</title>
-    <titleShort>Morty</titleShort>
+    <titleShort>Morty (Adult)</titleShort>
     <baseDesc>After a thousand adventures, Morty’s trauma is only matched by his survival instincts. “Aw jeez, Rick!”</baseDesc>
     <slot>Adulthood</slot>
     <bodyTypeMale>Male</bodyTypeMale>
@@ -124,7 +124,7 @@
   <BackstoryDef>
     <defName>SummerSmithChild</defName>
     <title>Popular Kid</title>
-    <titleShort>Summer</titleShort>
+    <titleShort>Summer (Child)</titleShort>
     <baseDesc>Summer was always trying to be cool, but ended up fighting aliens with her grandpa. She learned to adapt—and sass back.</baseDesc>
     <slot>Childhood</slot>
     <bodyTypeMale>Female</bodyTypeMale>
@@ -141,7 +141,7 @@
   <BackstoryDef>
     <defName>SummerSmithAdult</defName>
     <title>Dimension Hopper</title>
-    <titleShort>Summer</titleShort>
+    <titleShort>Summer (Adult)</titleShort>
     <baseDesc>Summer’s adventures made her tough and sarcastic. She’s seen more weird stuff than most RimWorlders. “Move over, Morty!”</baseDesc>
     <slot>Adulthood</slot>
     <bodyTypeMale>Female</bodyTypeMale>
@@ -161,7 +161,7 @@
   <BackstoryDef>
     <defName>BethSmithChild</defName>
     <title>Horse Girl</title>
-    <titleShort>Beth</titleShort>
+    <titleShort>Beth (Child)</titleShort>
     <baseDesc>Beth loved horses and science, but mostly horses. She dreamed of being a real vet, not just a clone. Or is she?</baseDesc>
     <slot>Childhood</slot>
     <bodyTypeMale>Female</bodyTypeMale>
@@ -178,7 +178,7 @@
   <BackstoryDef>
     <defName>BethSmithAdult</defName>
     <title>Horse Surgeon</title>
-    <titleShort>Beth</titleShort>
+    <titleShort>Beth (Adult)</titleShort>
     <baseDesc>Beth became a horse surgeon, but her real specialty is existential crisis. “I’m not a clone, right?”</baseDesc>
     <slot>Adulthood</slot>
     <bodyTypeMale>Female</bodyTypeMale>
@@ -201,7 +201,7 @@
   <BackstoryDef>
     <defName>JerrySmithChild</defName>
     <title>Unremarkable Kid</title>
-    <titleShort>Jerry</titleShort>
+    <titleShort>Jerry (Child)</titleShort>
     <baseDesc>Jerry was always picked last. He tried his best, but his best was... Jerry.</baseDesc>
     <slot>Childhood</slot>
     <bodyTypeMale>Male</bodyTypeMale>
@@ -217,7 +217,7 @@
   <BackstoryDef>
     <defName>JerrySmithAdult</defName>
     <title>Unemployed Dad</title>
-    <titleShort>Jerry</titleShort>
+    <titleShort>Jerry (Adult)</titleShort>
     <baseDesc>Jerry’s greatest skill is mediocrity. He’s survived this long by being forgettable. “I am the father!”</baseDesc>
     <slot>Adulthood</slot>
     <bodyTypeMale>Male</bodyTypeMale>

@@ -1,5 +1,5 @@
 <Defs>
-  <ThingDef ParentName="BaseWeapon"  MayRequire="Ludeon.RimWorld.Royalty">
+  <ThingDef ParentName="BaseWeapon" MayRequire="Ludeon.RimWorld.Royalty">
     <defName>RickPortalGun</defName>
     <label>portal gun</label>
     <description>A weird tech device that opens rifts in space-time. Can teleport you instantly.</description>
@@ -13,13 +13,15 @@
     <techLevel>Ultra</techLevel>
     <thingClass>ThingWithComps</thingClass>
     <verbs>
-      <li MayRequire="Ludeon.RimWorld.Royalty">
-        <verbClass>Verb_CastAbility</verbClass>
+      <li>
+        <verbClass>RickAndMortyBruh.Verb_CastAbilityRickPortal</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <range>60</range>
+        <warmupTime>0.5</warmupTime>
       </li>
     </verbs>
     <weaponTags>
       <li>TechPortal</li>
     </weaponTags>
-    
   </ThingDef>
 </Defs>
