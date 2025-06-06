@@ -3,10 +3,10 @@ using System.Collections;
 using System.Linq;
 using System.Reflection;
 using Verse;
+using RimWorld.Planet;
 using Verse.AI;
 using RimWorld;
 using HarmonyLib;
-using RimWorld.Planet; // for GlobalTargetInfo
 
 namespace RickAndMortyBruh
 {
