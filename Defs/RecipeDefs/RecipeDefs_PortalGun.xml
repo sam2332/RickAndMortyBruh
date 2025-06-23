@@ -32,6 +32,10 @@
       <li>TableMachining</li>
       <li>FabricationBench</li>
     </recipeUsers>
+    <smeltingProduct>
+      <thingDef>RickPortalGun</thingDef>
+      <count>1</count>
+    </smeltingProduct>
     <researchPrerequisite>Machining</researchPrerequisite>
   </RecipeDef>
 </Defs>

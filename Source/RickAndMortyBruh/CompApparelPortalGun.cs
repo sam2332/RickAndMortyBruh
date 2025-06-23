@@ -52,20 +52,17 @@ namespace RickAndMortyBruh
             }
         }        private void UsePortalGun(Pawn wearer, LocalTargetInfo target)
         {
+            Log.Message(string.Format("[Rick Portal] UsePortalGun called with target: {0}, Cell: {1}", target, target.Cell));
+            
             // Create a temporary verb to handle the portal logic
             Verb_CastAbilityRickPortal portalVerb = new Verb_CastAbilityRickPortal();
             
             // Set up the verb properties using reflection for currentTarget
             portalVerb.caster = wearer;
             
-            // Use reflection to set the protected currentTarget field
-            var currentTargetField = typeof(Verb).GetField("currentTarget", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            if (currentTargetField != null)
-            {
-                currentTargetField.SetValue(portalVerb, target);
-            }
+            Log.Message(string.Format("[Rick Portal] About to validate and use portal with target: {0}", target.Cell));
             
-            // Use the existing portal logic
+            // Use the existing portal logic - don't set currentTarget manually, let TryPortalTo handle it
             if (portalVerb.ValidateTarget(target, true) && portalVerb.CanHitTarget(target))
             {
                 portalVerb.TryPortalTo(target);

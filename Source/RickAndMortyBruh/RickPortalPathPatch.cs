@@ -62,14 +62,14 @@ namespace RickAndMortyBruh
             if (hasPortalGun)
             {
                 Log.Message("[Rick Portal] Portal gun detected! Path meets criteria for auto-portal.");
-                
-                // Create a temporary verb to handle the portal logic
+                  // Create a temporary verb to handle the portal logic
                 Verb_CastAbilityRickPortal portalVerb = new Verb_CastAbilityRickPortal();
                 portalVerb.caster = pawn;
                 
                 LocalTargetInfo target = new LocalTargetInfo(dest);
                 
-                Log.Message("[Rick Portal] Portal verb created, validating target...");
+                Log.Message(string.Format("[Rick Portal] PathPatch - Portal verb created for dest: {0}, target: {1}, target.Cell: {2}", 
+                    dest, target, target.Cell));
                 
                 bool targetValid = portalVerb.ValidateTarget(target, false);
                 bool canHit = portalVerb.CanHitTarget(target);
