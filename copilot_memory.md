@@ -28,6 +28,25 @@
 
 ## Recent Changes (v2.0)
 
+### Portal Auto-Teleport Debug (Latest)
+- **Fixed syntax errors**: Removed C# 6+ null conditional operators (?.) for C# 5 compatibility
+- **Added comprehensive debug logging**: Portal path patch now logs every step of the decision process
+- **Fixed method access**: Added `TryPortalTo()` method to `Verb_CastAbilityRickPortal` for manual portal triggering
+- **Enhanced path detection**: Improved weapon and verb detection logic in `RickPortalPathPatch`
+
+### Debug Features Added
+1. **Path Check Logging**: Shows distance, path cost, and decision reasoning
+2. **Weapon Detection**: Logs what weapon the pawn has equipped
+3. **Portal Verb Detection**: Logs when portal gun verb is found or not found
+4. **Target Validation**: Shows if target passes validation checks
+
+### Current Auto-Portal Conditions
+- Distance must be >= 15 tiles
+- Path cost must be > 40 ticks
+- Distance must be <= 80 tiles  
+- Pawn must have `RickPortalGun` equipped
+- Target must pass validation and hit checks
+
 ### Portal Gloves Removal
 - ❌ Removed `PortalGloveHediff.xml` - Portal glove hediff definition
 - ❌ Removed `HediffCompProperties_Abilities.cs` - Hediff component for portal abilities

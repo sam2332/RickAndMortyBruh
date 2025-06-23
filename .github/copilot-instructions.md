@@ -10,8 +10,5 @@ Base game defs are located in "c:\Program Files (x86)\Steam\steamapps\common\Rim
 you are using windows 10 and powershell
 do not use string interpolation in c#
 
-copilot_memory.md need to store information about the mod
-you are making
-you will use the information in copilot_memory.md to help you
 
 you will perform actions agenticaly and work on solving the message the user sent you
