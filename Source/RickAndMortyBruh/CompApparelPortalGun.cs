@@ -52,7 +52,17 @@ namespace RickAndMortyBruh
             }
         }        private void UsePortalGun(Pawn wearer, LocalTargetInfo target)
         {
-            Log.Message(string.Format("[Rick Portal] UsePortalGun called with target: {0}, Cell: {1}", target, target.Cell));
+            Log.Message(string.Format("[Rick Portal] UsePortalGun called with target: {0}, Cell: {1} (x:{2},y:{3},z:{4}), IsValid: {5}, HasThing: {6}", 
+                target, target.Cell, target.Cell.x, target.Cell.y, target.Cell.z, target.IsValid, target.HasThing));
+            
+            // Validate that we have reasonable coordinates
+            if (!target.IsValid || !target.Cell.InBounds(wearer.Map))
+            {
+                Log.Warning(string.Format("[Rick Portal] Invalid target coordinates: {0}, map size: {1}x{2}", 
+                    target.Cell, wearer.Map.Size.x, wearer.Map.Size.z));
+                Messages.Message("Invalid target location", MessageTypeDefOf.RejectInput, false);
+                return;
+            }
             
             // Create a temporary verb to handle the portal logic
             Verb_CastAbilityRickPortal portalVerb = new Verb_CastAbilityRickPortal();
@@ -60,7 +70,8 @@ namespace RickAndMortyBruh
             // Set up the verb properties using reflection for currentTarget
             portalVerb.caster = wearer;
             
-            Log.Message(string.Format("[Rick Portal] About to validate and use portal with target: {0}", target.Cell));
+            Log.Message(string.Format("[Rick Portal] About to validate and use portal with target: {0} (x:{1},y:{2},z:{3})", 
+                target.Cell, target.Cell.x, target.Cell.y, target.Cell.z));
             
             // Use the existing portal logic - don't set currentTarget manually, let TryPortalTo handle it
             if (portalVerb.ValidateTarget(target, true) && portalVerb.CanHitTarget(target))

@@ -13,18 +13,26 @@ namespace RickAndMortyBruh
             if (abilityDefNode != null)
             {
                 abilityDef = abilityDefNode.InnerText;
-            }
-        }        public void InitializeFromAbilityDef(string defName)
+            }        }
+        
+        public void InitializeFromAbilityDef(string defName)
         {
             abilityDef = defName;
-        }        // Public method to manually trigger portal with a target
-        public bool TryPortalTo(LocalTargetInfo target)
+        }        // Public method to trigger portal to a destination during pathing
+        public bool TryPortalTo(IntVec3 destination, Map map)
         {
-            Log.Message(string.Format("[Rick Portal] TryPortalTo called with target: {0}, Cell: {1}", target, target.Cell));
+            Log.Message(string.Format("[Rick Portal] TryPortalTo called with destination: {0} (x:{1},z:{2})", 
+                destination, destination.x, destination.z));
             
-            // Store the target in a private field and use it directly instead of relying on currentTarget
+            // Create a LocalTargetInfo from the destination cell
+            LocalTargetInfo target = new LocalTargetInfo(destination);
+            
+            // Store the target in a private field and use it directly
             manualTarget = target;
             useManualTarget = true;
+            
+            Log.Message(string.Format("[Rick Portal] Stored manualTarget: {0} (x:{1},z:{2})", 
+                manualTarget.Cell, manualTarget.Cell.x, manualTarget.Cell.z));
             
             bool result = TryCastShot();
             
@@ -34,10 +42,18 @@ namespace RickAndMortyBruh
             
             return result;
         }
-
+        
+        // Overload for LocalTargetInfo (keeping for compatibility)
+        public bool TryPortalTo(LocalTargetInfo target)
+        {
+            return TryPortalTo(target.Cell, caster.Map);
+        }
+        
         // Fields to store manual targeting
         private LocalTargetInfo manualTarget = LocalTargetInfo.Invalid;
-        private bool useManualTarget = false;// Override validation to ignore line of sight and fog
+        private bool useManualTarget = false;
+        
+        // Override validation to ignore line of sight and fog
         public override bool ValidateTarget(LocalTargetInfo target, bool showMessages = true)
         {
             return TargetingValidator_IgnoreFog.ValidateTarget(target, this, showMessages);
@@ -75,14 +91,22 @@ namespace RickAndMortyBruh
             Pawn casterPawn = caster as Pawn;
             if (casterPawn == null)
             {
-                Log.Warning("Portal gun failed: Caster is not a pawn.");                return false;
+                Log.Warning("Portal gun failed: Caster is not a pawn.");
+                return false;
             }
 
             // Use manual target if available, otherwise fall back to CurrentTarget
             LocalTargetInfo effectiveTarget = useManualTarget ? manualTarget : CurrentTarget;
             
+            // Validate target before proceeding
+            if (!effectiveTarget.IsValid)
+            {
+                Log.Warning("Portal gun failed: Invalid target.");
+                return false;
+            }
+            
             Log.Message(string.Format("[Rick Portal] TryCastShot - EffectiveTarget: {0}, Cell: {1}, HasThing: {2}, UseManual: {3}", 
-                effectiveTarget, effectiveTarget.Cell, effectiveTarget.HasThing, useManualTarget));            // Check if we're targeting a pawn directly
+                effectiveTarget, effectiveTarget.Cell, effectiveTarget.HasThing, useManualTarget));// Check if we're targeting a pawn directly
             if (effectiveTarget.HasThing && effectiveTarget.Thing is Pawn)
             {
                 Pawn targetPawn = effectiveTarget.Thing as Pawn;
@@ -99,50 +123,72 @@ namespace RickAndMortyBruh
             }            // Otherwise, teleport the caster to the target location
             IntVec3 targetCell = effectiveTarget.Cell;
             
-            Log.Message(string.Format("[Rick Portal] Teleportation - targetCell: {0}, caster position: {1}, map size: {2}x{3}", 
-                targetCell, casterPawn.Position, casterPawn.Map.Size.x, casterPawn.Map.Size.z));
-
-            if (targetCell.IsValid && targetCell.InBounds(casterPawn.Map))
+            Log.Message(string.Format("[Rick Portal] Raw target cell: {0} (x:{1}, z:{2})", 
+                targetCell, targetCell.x, targetCell.z));
+            
+            // Clamp target cell to map bounds if it's outside
+            if (targetCell.x < 0) targetCell.x = 0;
+            if (targetCell.z < 0) targetCell.z = 0;
+            if (targetCell.x >= casterPawn.Map.Size.x) targetCell.x = casterPawn.Map.Size.x - 1;
+            if (targetCell.z >= casterPawn.Map.Size.z) targetCell.z = casterPawn.Map.Size.z - 1;
+            
+            Log.Message(string.Format("[Rick Portal] Clamped target cell: {0} (x:{1}, z:{2})", 
+                targetCell, targetCell.x, targetCell.z));
+            
+            // Validate target cell
+            if (!targetCell.IsValid)
             {
-                // Check if there's a pawn at the target location and kill it first
-                Pawn pawnAtTarget = targetCell.GetFirstPawn(casterPawn.Map);
+                Log.Warning("Portal gun failed: Target cell is invalid.");
+                return false;
+            }
+            
+            if (!targetCell.InBounds(casterPawn.Map))
+            {
+                Log.Warning(string.Format("Portal gun failed: Target cell {0} is out of bounds (map size: {1}x{2}).", 
+                    targetCell, casterPawn.Map.Size.x, casterPawn.Map.Size.z));
+                return false;
+            }Log.Message(string.Format("[Rick Portal] Teleportation - targetCell: {0}, caster position: {1}, map size: {2}x{3}", 
+                targetCell, casterPawn.Position, casterPawn.Map.Size.x, casterPawn.Map.Size.z));            // Check if there's a pawn at the target location and kill it first
+            Pawn pawnAtTarget = targetCell.GetFirstPawn(casterPawn.Map);
+            
+            if (pawnAtTarget != null && pawnAtTarget != casterPawn)
+            {
+                pawnAtTarget.Destroy(DestroyMode.KillFinalize);
                 
-                if (pawnAtTarget != null && pawnAtTarget != casterPawn)
-                {
-                    pawnAtTarget.Destroy(DestroyMode.KillFinalize);
-                    
-                    FleckMaker.ThrowSmoke(pawnAtTarget.Position.ToVector3(), pawnAtTarget.Map, 2.0f);
-                    FleckMaker.ThrowMicroSparks(pawnAtTarget.Position.ToVector3(), pawnAtTarget.Map);
-                    FleckMaker.ThrowLightningGlow(pawnAtTarget.Position.ToVector3(), pawnAtTarget.Map, 1.5f);
-                    
-                    Log.Message("Portal gun vaporized " + pawnAtTarget.LabelShort + " before teleporting");
-                }
+                FleckMaker.ThrowSmoke(pawnAtTarget.Position.ToVector3(), pawnAtTarget.Map, 2.0f);
+                FleckMaker.ThrowMicroSparks(pawnAtTarget.Position.ToVector3(), pawnAtTarget.Map);
+                FleckMaker.ThrowLightningGlow(pawnAtTarget.Position.ToVector3(), pawnAtTarget.Map, 1.5f);
+                
+                Log.Message("Portal gun vaporized " + pawnAtTarget.LabelShort + " before teleporting");
+            }
 
-                if (targetCell.Standable(casterPawn.Map))
+            if (targetCell.Standable(casterPawn.Map))
+            {
+                casterPawn.Position = targetCell;
+                casterPawn.pather.StopDead();
+                casterPawn.Notify_Teleported();
+                FleckMaker.ThrowSmoke(targetCell.ToVector3(), casterPawn.Map, 1.0f);
+                FleckMaker.ThrowMicroSparks(targetCell.ToVector3(), casterPawn.Map);
+                
+                Log.Message("Teleported " + casterPawn.LabelShort + " to " + targetCell);
+                
+                return true;
+            }
+            else
+            {
+                // Try to find the closest standable cell to the target, not a random one
+                IntVec3 standableCell = FindClosestStandableCell(targetCell, casterPawn.Map);
+                if (standableCell.IsValid)
                 {
-                    casterPawn.Position = targetCell;
+                    casterPawn.Position = standableCell;
                     casterPawn.pather.StopDead();
                     casterPawn.Notify_Teleported();
-                    FleckMaker.ThrowSmoke(targetCell.ToVector3(), casterPawn.Map, 1.0f);                    FleckMaker.ThrowMicroSparks(targetCell.ToVector3(), casterPawn.Map);
+                    FleckMaker.ThrowSmoke(standableCell.ToVector3(), casterPawn.Map, 1.0f);
+                    FleckMaker.ThrowMicroSparks(standableCell.ToVector3(), casterPawn.Map);
                     
-                    Log.Message("Teleported " + casterPawn.LabelShort + " to " + targetCell);
+                    Log.Message("Teleported " + casterPawn.LabelShort + " to " + standableCell + " (closest to target)");
                     
                     return true;
-                }                else
-                {
-                    // Try to find the closest standable cell to the target, not a random one
-                    IntVec3 standableCell = FindClosestStandableCell(targetCell, casterPawn.Map);
-                    if (standableCell.IsValid)
-                    {
-                        casterPawn.Position = standableCell;
-                        casterPawn.pather.StopDead();
-                        casterPawn.Notify_Teleported();
-                        FleckMaker.ThrowSmoke(standableCell.ToVector3(), casterPawn.Map, 1.0f);                        FleckMaker.ThrowMicroSparks(standableCell.ToVector3(), casterPawn.Map);
-                        
-                        Log.Message("Teleported " + casterPawn.LabelShort + " to " + standableCell + " (closest to target)");
-                        
-                        return true;
-                    }
                 }
             }
 
