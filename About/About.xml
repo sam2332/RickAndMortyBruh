@@ -8,16 +8,9 @@
   </supportedVersions>
   <loadAfter>
     <li>Ludeon.RimWorld.Royalty</li>
-    <li>randolphcherrypepper.apparelgizmosfromcomps</li>
     <li>brrainz.harmony</li>
   </loadAfter>
   <modDependencies>
-    <li>
-      <packageId>randolphcherrypepper.apparelgizmosfromcomps</packageId>
-      <displayName>Apparel Gizmos From Comps</displayName>
-      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=1272185463</steamWorkshopUrl>
-      <downloadUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=1272185463</downloadUrl>
-    </li>
     <li>
       <packageId>brrainz.harmony</packageId>
       <displayName>Harmony</displayName>

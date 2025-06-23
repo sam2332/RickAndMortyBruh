@@ -20,17 +20,25 @@ namespace RickAndMortyBruh
                 original: AccessTools.Method(typeof(Pawn_PathFollower), "StartPath"),
                 prefix: new HarmonyMethod(typeof(RickPortalPathPatch), "UsePortalFirst")
             );
-        }
-
+        }  
         public static bool UsePortalFirst(Pawn_PathFollower __instance, IntVec3 dest, PathEndMode peMode)
         {
             Pawn pawn = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
             if (pawn == null || !pawn.Spawned || pawn.Map == null)
                 return true;
 
+            // Only apply to player faction pawns
+            if (pawn.Faction != Faction.OfPlayer)
+                return true;
+
             // Already there
             if (pawn.Position == dest)
                 return false;
+
+            // Check if destination is too close - no need for portal
+            float distance = (pawn.Position - dest).LengthHorizontal;
+            if (distance < 15f)
+                return true;
 
             // Estimate path cost
             PathFinder pf = pawn.Map.pathFinder;
@@ -39,34 +47,25 @@ namespace RickAndMortyBruh
                 return true;
 
             float estimatedCost = path.TotalCost;
-            path.Dispose();
-
-            if (estimatedCost <= 30 || (pawn.Position - dest).LengthHorizontal > 60)
+            path.Dispose();            // Only use portal if path is expensive (>40 ticks) and distance is reasonable
+            if (estimatedCost <= 40f || distance > 80f)
                 return true;
 
-            // Try to find and cast RickPortalAbility via reflection
-            foreach (var comp in pawn.AllComps)
+            // Check if pawn has portal gun equipped
+            if (pawn.equipment != null && pawn.equipment.Primary != null && pawn.equipment.Primary.def.defName == "RickPortalGun")
             {
-                var abilitiesField = comp.GetType().GetField("Abilities");
-                if (abilitiesField != null)
+                // Get the portal gun's verb
+                var portalVerb = pawn.equipment.PrimaryEq.PrimaryVerb as Verb_CastAbilityRickPortal;
+                if (portalVerb != null && portalVerb.Available())
                 {
-                    var abilities = abilitiesField.GetValue(comp) as IEnumerable;
-                    if (abilities != null)
+                    // Try to cast the portal to the destination
+                    LocalTargetInfo target = new LocalTargetInfo(dest);
+                    if (portalVerb.ValidateTarget(target, false))
                     {
-                        foreach (var ability in abilities)
+                        if (portalVerb.TryStartCastOn(target))
                         {
-                            var defField = ability.GetType().GetField("def");
-                            if (defField == null) continue;
-
-                            var def = defField.GetValue(ability) as Def;
-                            if (def == null || def.defName != "RickPortalAbility") continue;
-
-                            var queueCast = ability.GetType().GetMethod("QueueCastingJob", new[] { typeof(GlobalTargetInfo) });
-                            if (queueCast != null)
-                            {
-                                queueCast.Invoke(ability, new object[] { new GlobalTargetInfo(dest, pawn.Map) });
-                                return false; // Skip normal walking
-                            }
+                            Log.Message(string.Format("[Rick Portal] Auto-portal triggered for {0} to {1}", pawn.LabelShort, dest));
+                            return false; // Skip normal walking
                         }
                     }
                 }

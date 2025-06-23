@@ -96,7 +96,8 @@ namespace RickAndMortyBruh
                     casterPawn.pather.StopDead();
                     casterPawn.Notify_Teleported();
                     FleckMaker.ThrowSmoke(targetCell.ToVector3(), casterPawn.Map, 1.0f);
-                    FleckMaker.ThrowMicroSparks(targetCell.ToVector3(), casterPawn.Map);                    Log.Message("Teleported " + casterPawn.LabelShort + " to " + targetCell);
+                    FleckMaker.ThrowMicroSparks(targetCell.ToVector3(), casterPawn.Map);             
+                    Log.Message("Teleported " + casterPawn.LabelShort + " to " + targetCell);
                     
                     return true;
                 }
