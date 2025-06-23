@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ScenarioDef>
+    <defName>RickAndMortyTest</defName>
+    <label>Rick and Morty Test</label>
+    <description>A testing scenario for the Rick and Morty mod. Start with a portal gun that even pacifists can use!</description>
+    <scenario>
+      <summary>A small group of survivors with advanced Rick technology.</summary>
+      <playerFaction>
+        <def>PlayerFaction</def>
+        <factionDef>PlayerColony</factionDef>
+      </playerFaction>
+      <parts>
+        <li Class="ScenPart_ConfigPage_ConfigureStartingPawns">
+          <def>ConfigPage_ConfigureStartingPawns</def>
+          <pawnCount>3</pawnCount>
+          <pawnChoiceCount>8</pawnChoiceCount>
+        </li>
+        <li Class="ScenPart_PlayerPawnsArriveMethod">
+          <def>PlayerPawnsArriveMethod</def>
+          <method>Standing</method>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Silver</thingDef>
+          <count>800</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MealSurvivalPack</thingDef>
+          <count>30</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Medicine</thingDef>
+          <count>15</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>ComponentIndustrial</thingDef>
+          <count>30</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Steel</thingDef>
+          <count>450</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>WoodLog</thingDef>
+          <count>300</count>
+        </li>
+        <!-- Portal gun as apparel -->
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>RickPortalGunApparel</thingDef>
+          <count>2</count>
+        </li>
+        <!-- Old weapon version for comparison -->
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>RickPortalGun</thingDef>
+          <count>1</count>
+        </li>
+        <li Class="ScenPart_CreateIncident">
+          <def>CreateIncident</def>
+          <incident>Eclipse</incident>
+          <intervalDays>15</intervalDays>
+        </li>
+      </parts>
+    </scenario>
+  </ScenarioDef>
+</Defs>

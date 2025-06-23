@@ -38,87 +38,65 @@ namespace RickAndMortyBruh
             // Check distance - portal if greater than 15 blocks
             float distance = (pawn.Position - dest).LengthHorizontal;
             Log.Message(string.Format("[Rick Portal] Distance: {0}", distance));
-            if (distance < 15f)
-            {
+            if (distance < 15f)            {
                 Log.Message("[Rick Portal] Distance too short for portal (< 15 blocks)");
                 return true;
             }
 
             Log.Message(string.Format("[Rick Portal] Distance {0} >= 15 blocks, checking for portal gun...", distance));
 
-            // Check if pawn has portal gun equipped
-            if (pawn.equipment != null && pawn.equipment.Primary != null)
+            // Check if pawn has portal gun worn as apparel (preferred) or equipped as weapon (legacy)
+            CompApparelPortalGun portalComp = CompApparelPortalGun.GetPortalGunComp(pawn);
+            bool hasPortalGun = portalComp != null;
+            
+            // Fallback: Check for old weapon version for compatibility
+            if (!hasPortalGun && pawn.equipment != null && pawn.equipment.Primary != null)
             {
-                Log.Message(string.Format("[Rick Portal] Pawn has weapon: {0}", pawn.equipment.Primary.def.defName));
                 if (pawn.equipment.Primary.def.defName == "RickPortalGun")
                 {
-                    Log.Message("[Rick Portal] Portal gun detected! Path meets criteria for auto-portal.");
-                    Verb_CastAbilityRickPortal portalVerb = null;
+                    hasPortalGun = true;
+                    Log.Message("[Rick Portal] Found legacy weapon version of portal gun");
+                }
+            }
 
-                    if (pawn.equipment.Primary.def.Verbs != null)
+            if (hasPortalGun)
+            {
+                Log.Message("[Rick Portal] Portal gun detected! Path meets criteria for auto-portal.");
+                
+                // Create a temporary verb to handle the portal logic
+                Verb_CastAbilityRickPortal portalVerb = new Verb_CastAbilityRickPortal();
+                portalVerb.caster = pawn;
+                
+                LocalTargetInfo target = new LocalTargetInfo(dest);
+                
+                Log.Message("[Rick Portal] Portal verb created, validating target...");
+                
+                bool targetValid = portalVerb.ValidateTarget(target, false);
+                bool canHit = portalVerb.CanHitTarget(target);
+                
+                Log.Message(string.Format("[Rick Portal] Target valid: {0}, Can hit: {1}", targetValid, canHit));
+                
+                if (targetValid && canHit)
+                {
+                    // Use our custom portal method
+                    if (portalVerb.TryPortalTo(target))
                     {
-                        foreach (var verbEntry in pawn.equipment.Primary.def.Verbs)                        {
-                            if (verbEntry.verbClass == typeof(Verb_CastAbilityRickPortal))
-                            {
-                                // Find the actual verb instance
-                                var verbTracker = pawn.equipment.Primary.GetComp<CompEquippable>();
-                                if (verbTracker != null && verbTracker.VerbTracker != null)
-                                {
-                                    foreach (var verb in verbTracker.VerbTracker.AllVerbs)
-                                    {
-                                        if (verb is Verb_CastAbilityRickPortal)
-                                        {
-                                            portalVerb = verb as Verb_CastAbilityRickPortal;
-                                            break;
-                                        }
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                    }                    // Fallback - try primary verb if it's our type
-                    if (portalVerb == null && pawn.equipment.PrimaryEq.PrimaryVerb is Verb_CastAbilityRickPortal)
-                    {
-                        portalVerb = pawn.equipment.PrimaryEq.PrimaryVerb as Verb_CastAbilityRickPortal;
-                    }
-                    
-                    if (portalVerb != null)
-                    {
-                        Log.Message("[Rick Portal] Portal verb found, validating target...");
-                        // Try to cast the portal to the destination
-                        LocalTargetInfo target = new LocalTargetInfo(dest);
-                        bool targetValid = portalVerb.ValidateTarget(target, false);
-                        bool canHit = portalVerb.CanHitTarget(target);
-                        
-                        Log.Message(string.Format("[Rick Portal] Target valid: {0}, Can hit: {1}", targetValid, canHit));
-                        
-                        if (targetValid && canHit)
-                        {
-                            // Use our custom portal method
-                            if (portalVerb.TryPortalTo(target))
-                            {
-                                Log.Message(string.Format("[Rick Portal] Auto-portal triggered for {0} to {1}", pawn.LabelShort, dest));
-                                return false; // Skip normal walking
-                            }
-                            else
-                            {
-                                Log.Message("[Rick Portal] TryPortalTo failed");
-                            }
-                        }
-                        else
-                        {
-                            Log.Message("[Rick Portal] Target validation or hit check failed");
-                        }
+                        Log.Message(string.Format("[Rick Portal] Auto-portal triggered for {0} to {1}", pawn.LabelShort, dest));
+                        return false; // Skip normal walking
                     }
                     else
                     {
-                        Log.Message("[Rick Portal] Portal verb not found");
+                        Log.Message("[Rick Portal] TryPortalTo failed");
                     }
+                }
+                else
+                {
+                    Log.Message("[Rick Portal] Target validation or hit check failed");
                 }
             }
             else
             {
-                Log.Message("[Rick Portal] No equipment or primary weapon");
+                Log.Message("[Rick Portal] No portal gun found (checked both apparel and weapon)");
             }
 
             return true;

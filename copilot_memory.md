@@ -74,3 +74,53 @@
 - Target: .NET Framework 4.7.2
 - ✅ Successfully compiles with C# 5 / .NET 4.7.2
 - ✅ Compatible with RimWorld 1.5
+
+# Portal Gun Changes - Pacifist-Friendly Update
+
+## Problem
+The portal gun was originally implemented as a weapon, which prevented pacifist pawns from equipping it due to RimWorld's restriction on pacifist pawns wielding weapons.
+
+## Solution
+Converted the portal gun from a weapon to an apparel item (utility belt worn on waist):
+
+### New Portal Gun (Apparel Version)
+- **DefName**: `RickPortalGunApparel`
+- **Type**: Apparel (belt layer, waist body part)
+- **Functionality**: Provides a gizmo (action button) that allows teleportation
+- **Pacifist-Friendly**: ✅ Yes - can be worn by pacifist pawns
+- **Auto-Path Integration**: ✅ Yes - automatically uses portal for long-distance movement
+
+### Legacy Portal Gun (Weapon Version)
+- **DefName**: `RickPortalGun` (marked as obsolete)
+- **Type**: Weapon
+- **Pacifist-Friendly**: ❌ No - pacifist pawns cannot equip
+- **Status**: Kept for compatibility but deprecated
+
+### Technical Implementation
+
+#### CompApparelPortalGun.cs
+- New component that provides portal gizmo when worn
+- Static helper methods for checking if pawn has portal gun
+- Creates temporary `Verb_CastAbilityRickPortal` for portal logic
+
+#### RickPortalPathPatch.cs Updates
+- Now checks for apparel portal gun first
+- Falls back to weapon version for compatibility
+- Simplified portal verb creation logic
+
+#### Conversion Recipe
+- Added crafting recipe to convert weapon version to apparel version
+- Requires Crafting 8 skill and machining bench
+- 1:1 conversion ratio
+
+### Usage
+1. Equip the `RickPortalGunApparel` on any pawn (including pacifists)
+2. Use the "Portal gun" gizmo button for manual teleportation
+3. Auto-teleportation works for movement distances ≥15 blocks
+
+### Files Modified
+- `CompApparelPortalGun.cs` (new)
+- `RicksPortalGun.xml` (updated - added apparel version)
+- `RickPortalPathPatch.cs` (updated - checks apparel first)
+- `RecipeDefs_PortalGun.xml` (new - conversion recipe)
+- `Scenarios_RickAndMorty.xml` (new - test scenario)

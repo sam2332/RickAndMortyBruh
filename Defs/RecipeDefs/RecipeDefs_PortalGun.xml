@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!-- Recipe to convert weapon portal gun to apparel portal gun -->
+  <RecipeDef>
+    <defName>ConvertPortalGunToApparel</defName>
+    <label>convert portal gun to wearable</label>
+    <description>Convert an old weapon-style portal gun into a wearable utility device.</description>
+    <jobString>Converting portal gun.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <workAmount>600</workAmount>
+    <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>RickPortalGun</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <products>
+      <RickPortalGunApparel>1</RickPortalGunApparel>
+    </products>
+    <skillRequirements>
+      <Crafting>8</Crafting>
+    </skillRequirements>
+    <recipeUsers>
+      <li>TableMachining</li>
+      <li>FabricationBench</li>
+    </recipeUsers>
+    <researchPrerequisite>Machining</researchPrerequisite>
+  </RecipeDef>
+</Defs>

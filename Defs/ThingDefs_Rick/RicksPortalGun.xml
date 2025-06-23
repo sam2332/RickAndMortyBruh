@@ -1,9 +1,56 @@
 <Defs>
-  <!-- Portal Gun as Weapon -->
+  <!-- Portal Gun as Apparel -->
+  <ThingDef ParentName="ApparelBase">
+    <defName>RickPortalGunApparel</defName>
+    <label>portal gun</label>
+    <description>A weird tech device that opens rifts in space-time. Can teleport you instantly. Worn as a utility device that even pacifists can use.</description>
+    <graphicData>
+      <texPath>Things/Item/Equipment/PortalGun</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <Mass>2.5</Mass>
+      <MarketValue>1500</MarketValue>
+      <Flammability>0.1</Flammability>
+      <ArmorRating_Sharp>0</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0</ArmorRating_Blunt>
+      <ArmorRating_Heat>0</ArmorRating_Heat>
+      <Insulation_Cold>0</Insulation_Cold>
+      <Insulation_Heat>0</Insulation_Heat>
+      <EquipDelay>1</EquipDelay>
+    </statBases>
+    <techLevel>Ultra</techLevel>
+    <thingClass>Apparel</thingClass>
+    <apparel>
+      <bodyPartGroups>
+        <li>Waist</li>
+      </bodyPartGroups>
+      <wornGraphicPath>Things/Item/Equipment/PortalGun</wornGraphicPath>
+      <layers>
+        <li>Belt</li>
+      </layers>
+      <defaultOutfitTags>
+        <li>Worker</li>
+        <li>Soldier</li>
+      </defaultOutfitTags>
+    </apparel>
+    <thingCategories>
+      <li>Apparel</li>
+    </thingCategories>
+    <tradeTags>
+      <li>Clothing</li>
+      <li>TechHediff</li>
+    </tradeTags>
+    <comps>
+      <li Class="RickAndMortyBruh.CompProperties_ApparelPortalGun"/>
+    </comps>
+  </ThingDef>
+
+  <!-- Keep old weapon version for compatibility, but mark it obsolete -->
   <ThingDef ParentName="BaseWeapon">
     <defName>RickPortalGun</defName>
-    <label>portal gun (weapon)</label>
-    <description>A weird tech device that opens rifts in space-time. Can teleport you instantly. Takes up your weapon slot.</description>
+    <label>portal gun (weapon - obsolete)</label>
+    <description>A weird tech device that opens rifts in space-time. This weapon version is obsolete - use the apparel version instead.</description>
     <graphicData>
       <texPath>Things/Item/Equipment/PortalGun</texPath>
       <graphicClass>Graphic_Single</graphicClass>

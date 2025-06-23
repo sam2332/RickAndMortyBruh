@@ -1,0 +1,111 @@
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using Verse;
+using RimWorld;
+
+namespace RickAndMortyBruh
+{
+    public class CompProperties_ApparelPortalGun : CompProperties
+    {
+        public CompProperties_ApparelPortalGun()
+        {
+            compClass = typeof(CompApparelPortalGun);
+        }
+    }
+
+    public class CompApparelPortalGun : ThingComp
+    {
+        public CompProperties_ApparelPortalGun Props
+        {
+            get
+            {
+                return (CompProperties_ApparelPortalGun)props;
+            }
+        }
+
+        public override IEnumerable<Gizmo> CompGetWornGizmosExtra()
+        {
+            if (parent.Spawned)
+            {
+                Pawn wearer = parent.ParentHolder as Pawn;
+                if (wearer != null && wearer.IsColonistPlayerControlled)
+                {
+                    yield return new Command_Target
+                    {
+                        defaultLabel = "Portal gun",
+                        defaultDesc = "Teleport to target location or vaporize target pawn",
+                        icon = ContentFinder<UnityEngine.Texture2D>.Get("UI/Commands/Attack", true),
+                        targetingParams = new TargetingParameters
+                        {
+                            canTargetLocations = true,
+                            canTargetPawns = true,
+                            canTargetBuildings = false,
+                            canTargetItems = false
+                        },
+                        action = delegate(LocalTargetInfo target)
+                        {
+                            UsePortalGun(wearer, target);
+                        }
+                    };
+                }
+            }
+        }        private void UsePortalGun(Pawn wearer, LocalTargetInfo target)
+        {
+            // Create a temporary verb to handle the portal logic
+            Verb_CastAbilityRickPortal portalVerb = new Verb_CastAbilityRickPortal();
+            
+            // Set up the verb properties using reflection for currentTarget
+            portalVerb.caster = wearer;
+            
+            // Use reflection to set the protected currentTarget field
+            var currentTargetField = typeof(Verb).GetField("currentTarget", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (currentTargetField != null)
+            {
+                currentTargetField.SetValue(portalVerb, target);
+            }
+            
+            // Use the existing portal logic
+            if (portalVerb.ValidateTarget(target, true) && portalVerb.CanHitTarget(target))
+            {
+                portalVerb.TryPortalTo(target);
+            }
+            else
+            {
+                Messages.Message("Cannot portal to that location", MessageTypeDefOf.RejectInput, false);
+            }
+        }
+
+        // Helper method to check if a pawn has the portal gun equipped
+        public static bool HasPortalGun(Pawn pawn)
+        {
+            if (pawn == null || pawn.apparel == null || pawn.apparel.WornApparel == null)
+                return false;
+
+            foreach (var apparel in pawn.apparel.WornApparel)
+            {
+                if (apparel.def.defName == "RickPortalGunApparel")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Helper method to get the portal gun comp from a pawn
+        public static CompApparelPortalGun GetPortalGunComp(Pawn pawn)
+        {
+            if (pawn == null || pawn.apparel == null || pawn.apparel.WornApparel == null)
+                return null;
+
+            foreach (var apparel in pawn.apparel.WornApparel)
+            {
+                if (apparel.def.defName == "RickPortalGunApparel")
+                {
+                    return apparel.GetComp<CompApparelPortalGun>();
+                }
+            }
+            return null;
+        }
+    }
+}
