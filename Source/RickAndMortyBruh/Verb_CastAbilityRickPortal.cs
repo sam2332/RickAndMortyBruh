@@ -57,12 +57,17 @@ namespace RickAndMortyBruh
         public override bool ValidateTarget(LocalTargetInfo target, bool showMessages = true)
         {
             return TargetingValidator_IgnoreFog.ValidateTarget(target, this, showMessages);
-        }
-
-        // Override to ignore line of sight and fog checks
+        }        // Override to ignore line of sight and fog checks
         public override bool CanHitTarget(LocalTargetInfo targ)
         {
             bool result = false;
+            
+            // Safety check for caster and map
+            if (caster == null || caster.Map == null)
+            {
+                Log.Warning("[Rick Portal] CanHitTarget: Caster or caster.Map is null");
+                return false;
+            }
             
             // Allow targeting pawns directly
             if (targ.HasThing && targ.Thing is Pawn)
@@ -77,16 +82,21 @@ namespace RickAndMortyBruh
               Log.Message("[Rick Portal] CanHitTarget called: " + result);
             
             return result;
-        }
-
-        // Override to force visibility in fog
+        }        // Override to force visibility in fog
         public override bool CanHitTargetFrom(IntVec3 root, LocalTargetInfo targ)
         {
+            // Safety check for caster and map
+            if (caster == null || caster.Map == null)
+            {
+                Log.Warning("[Rick Portal] CanHitTargetFrom: Caster or caster.Map is null");
+                return false;
+            }
+            
             bool result = targ.Cell.InBounds(caster.Map);
             Log.Message("[Rick Portal] CanHitTargetFrom called: " + result);
             
             return result;
-        }        protected override bool TryCastShot()
+        }protected override bool TryCastShot()
         {
             Pawn casterPawn = caster as Pawn;
             if (casterPawn == null)

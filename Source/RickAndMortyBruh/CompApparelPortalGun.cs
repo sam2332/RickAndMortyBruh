@@ -67,21 +67,39 @@ namespace RickAndMortyBruh
             // Create a temporary verb to handle the portal logic
             Verb_CastAbilityRickPortal portalVerb = new Verb_CastAbilityRickPortal();
             
-            // Set up the verb properties using reflection for currentTarget
+            // Properly initialize the verb
             portalVerb.caster = wearer;
+            portalVerb.verbProps = new VerbProperties();
+            portalVerb.verbProps.range = 999f;
+            portalVerb.verbProps.targetParams = new TargetingParameters();
+            portalVerb.verbProps.targetParams.canTargetLocations = true;
+            portalVerb.verbProps.targetParams.canTargetPawns = true;
+            portalVerb.verbProps.targetParams.canTargetBuildings = false;
             
             Log.Message(string.Format("[Rick Portal] About to validate and use portal with target: {0} (x:{1},y:{2},z:{3})", 
                 target.Cell, target.Cell.x, target.Cell.y, target.Cell.z));
-              // Use the existing portal logic - don't set currentTarget manually, let TryPortalTo handle it
-            if (portalVerb.ValidateTarget(target, true) && portalVerb.CanHitTarget(target))
+              
+            // Use the existing portal logic - don't set currentTarget manually, let TryPortalTo handle it
+            if (portalVerb.ValidateTarget(target, true))
             {
-                bool result = portalVerb.TryPortalTo(target.Cell, wearer.Map);
-                Log.Message(string.Format("[Rick Portal] Portal attempt result: {0}", result));
-                return result;
+                Log.Message("[Rick Portal] Target validation passed");
+                if (portalVerb.CanHitTarget(target))
+                {
+                    Log.Message("[Rick Portal] CanHitTarget passed, attempting portal");
+                    bool result = portalVerb.TryPortalTo(target.Cell, wearer.Map);
+                    Log.Message(string.Format("[Rick Portal] Portal attempt result: {0}", result));
+                    return result;
+                }
+                else
+                {
+                    Log.Warning("[Rick Portal] CanHitTarget failed");
+                    Messages.Message("Cannot portal to that location", MessageTypeDefOf.RejectInput, false);
+                    return false;
+                }
             }
             else
             {
-                Log.Message("[Rick Portal] Portal validation or hit target check failed");
+                Log.Warning("[Rick Portal] Target validation failed");
                 Messages.Message("Cannot portal to that location", MessageTypeDefOf.RejectInput, false);
                 return false;
             }
@@ -114,9 +132,7 @@ namespace RickAndMortyBruh
                     return apparel.GetComp<CompApparelPortalGun>();
                 }
             }
-            return null;        }
-
-        // Public method to trigger portal teleportation from code
+            return null;        }        // Public method to trigger portal teleportation from code
         public bool TryPortalTo(LocalTargetInfo target)
         {
             Pawn wearer = parent.ParentHolder as Pawn;
@@ -124,6 +140,13 @@ namespace RickAndMortyBruh
                 return false;
 
             return UsePortalGun(wearer, target);
+        }
+
+        // Overload for IntVec3 destination
+        public bool TryPortalTo(IntVec3 destination)
+        {
+            LocalTargetInfo target = new LocalTargetInfo(destination);
+            return TryPortalTo(target);
         }
     }
 }

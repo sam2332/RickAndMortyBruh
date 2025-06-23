@@ -26,6 +26,25 @@
 - Auto-portal pathfinding: ✅ Working  
 - Portal glove system: ❌ Removed (as requested)
 
+## Recent Changes (v2.1)
+
+### Portal Bug Fixes (Latest)
+- **Fixed missing method**: Added `TryPortalTo(IntVec3)` overload to `CompApparelPortalGun` that was missing
+- **Enhanced verb initialization**: Properly initialize `Verb_CastAbilityRickPortal` with verbProps when created programmatically
+- **Added safety checks**: Null checks for caster and caster.Map in `CanHitTarget` and `CanHitTargetFrom` methods
+- **Improved debugging**: More detailed logging in `UsePortalGun` method to track validation failures
+
+### Debug Features Added
+1. **Method Resolution**: Added missing `TryPortalTo(IntVec3)` method to apparel component
+2. **Verb Initialization**: Proper initialization of verb properties for programmatic use
+3. **Safety Validation**: Comprehensive null checks and validation logging
+4. **Target Validation**: Step-by-step logging of target validation process
+
+### Current Issue Resolution
+- **Problem**: "AI Apparel TryPortalTo failed" due to missing method overload
+- **Solution**: Added proper method overload and verb initialization
+- **Status**: ✅ Should be fixed now
+
 ## Recent Changes (v2.0)
 
 ### Portal Auto-Teleport Debug (Latest)
