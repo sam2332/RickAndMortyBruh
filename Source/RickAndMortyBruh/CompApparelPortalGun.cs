@@ -135,18 +135,35 @@ namespace RickAndMortyBruh
             return null;        }        // Public method to trigger portal teleportation from code
         public bool TryPortalTo(LocalTargetInfo target)
         {
+            Log.Message(string.Format("[Rick Portal] CompApparelPortalGun.TryPortalTo called with target: {0}", target));
+            
             Pawn wearer = parent.ParentHolder as Pawn;
             if (wearer == null)
+            {
+                Log.Warning("[Rick Portal] CompApparelPortalGun.TryPortalTo: No wearer found");
                 return false;
+            }
 
-            return UsePortalGun(wearer, target);
+            Log.Message(string.Format("[Rick Portal] CompApparelPortalGun.TryPortalTo: Wearer is {0}, calling UsePortalGun", wearer.LabelShort));
+            bool result = UsePortalGun(wearer, target);
+            Log.Message(string.Format("[Rick Portal] CompApparelPortalGun.TryPortalTo: UsePortalGun returned {0}", result));
+            return result;
         }
 
         // Overload for IntVec3 destination
         public bool TryPortalTo(IntVec3 destination)
         {
+            Log.Message(string.Format("[Rick Portal] CompApparelPortalGun.TryPortalTo(IntVec3) called with destination: {0}", destination));
             LocalTargetInfo target = new LocalTargetInfo(destination);
             return TryPortalTo(target);
+        }
+        
+        // Overload that accepts the pawn directly (for when ParentHolder fails)
+        public bool TryPortalTo(IntVec3 destination, Pawn wearer)
+        {
+            Log.Message(string.Format("[Rick Portal] CompApparelPortalGun.TryPortalTo(IntVec3, Pawn) called with destination: {0}, wearer: {1}", destination, wearer.LabelShort));
+            LocalTargetInfo target = new LocalTargetInfo(destination);
+            return UsePortalGun(wearer, target);
         }
     }
 }

@@ -7,47 +7,187 @@
 ## Key Components
 
 ### Portal Gun System
-1. **Portal Gun Item** (`RicksPortalGun.xml`): Weapon with portal verb capabilities
-2. **Portal Verb** (`Verb_CastAbilityRickPortal.cs`): Handles teleportation and vaporization
+1. **Portal Gun Apparel** (`RicksPortalGun.xml`): Utility apparel with portal component
+2. **Portal Component** (`CompApparelPortalGun.cs`): Apparel component for portal functionality
+3. **Portal Verb** (`Verb_CastAbilityRickPortal.cs`): Handles teleportation and vaporization
+4. **Auto-Portal Patch** (`RickPortalPathPatch.cs`): Auto-uses portal gun for long distances
 
-### Auto-Portal Feature
-- **Path Patch** (`RickPortalPathPatch.cs`): Auto-uses portal gun for long distances (working)
+## Current Status: PORTAL FAILURE IDENTIFIED
 
-## Technical Details
+### Latest Debug Results (BREAKTHROUGH!)
+From the screenshot logs, we can see the exact failure sequence:
 
-### Portal Mechanics
-- Manual use via right-click when portal gun equipped
-- Auto-use when pathfinding long distances  
-- Can teleport to locations or vaporize targeted pawns
-- Range: 999 tiles, ignores line of sight and fog
+```
+[18:49:00] [Rick Portal] AI Distance 32.44936 >= 15 blocks, checking for portal gun...
+[18:49:00] [Rick Portal] AI Portal gun detected! Path meets criteria for auto-portal.
+[18:49:00] [Rick Portal] AI Using apparel portal gun component for dest: (68,0,146)
+[18:49:00] [Rick Portal] CompApparelPortalGun.TryPortalTo(IntVec3) called with destination: (68,0,146)
+[18:49:00] [Rick Portal] CompApparelPortalGun.TryPortalTo called with target: (68,0,146)
+[18:49:00] [Rick Portal] CompApparelPortalGun.TryPortalTo: No wearer found
+[18:49:00] [Rick Portal] AI Apparel TryPortalTo failed
+```
 
-### System Status
-- Portal gun weapon: ✅ Working
-- Auto-portal pathfinding: ✅ Working  
-- Portal glove system: ❌ Removed (as requested)
+### 🎯 ROOT CAUSE IDENTIFIED: NO WEARER FOUND
 
-## Recent Changes (v2.1)
+**THE PROBLEM**: `CompApparelPortalGun.TryPortalTo: No wearer found`
 
-### Portal Bug Fixes (Latest)
-- **Fixed missing method**: Added `TryPortalTo(IntVec3)` overload to `CompApparelPortalGun` that was missing
-- **Enhanced verb initialization**: Properly initialize `Verb_CastAbilityRickPortal` with verbProps when created programmatically
-- **Added safety checks**: Null checks for caster and caster.Map in `CanHitTarget` and `CanHitTargetFrom` methods
-- **Improved debugging**: More detailed logging in `UsePortalGun` method to track validation failures
+This means:
+- ✅ Portal gun is detected correctly
+- ✅ Auto-portal logic triggers correctly  
+- ✅ Component methods are called correctly
+- ❌ **FAILING**: `parent.ParentHolder as Pawn` returns null
 
-### Debug Features Added
-1. **Method Resolution**: Added missing `TryPortalTo(IntVec3)` method to apparel component
-2. **Verb Initialization**: Proper initialization of verb properties for programmatic use
-3. **Safety Validation**: Comprehensive null checks and validation logging
-4. **Target Validation**: Step-by-step logging of target validation process
+### Analysis
+The issue is in `CompApparelPortalGun.TryPortalTo()`:
+```csharp
+Pawn wearer = parent.ParentHolder as Pawn;
+if (wearer == null)
+{
+    Log.Warning("[Rick Portal] CompApparelPortalGun.TryPortalTo: No wearer found");
+    return false;  // <-- THIS IS WHERE IT FAILS
+}
+```
 
-### Current Issue Resolution
-- **Problem**: "AI Apparel TryPortalTo failed" due to missing method overload
-- **Solution**: Added proper method overload and verb initialization
-- **Status**: ✅ Should be fixed now
+**Why `ParentHolder` is null:**
+- The apparel component's `parent.ParentHolder` should be the pawn wearing it
+- But it's returning null, suggesting the apparel isn't properly "worn" by the pawn
+- This could be a timing issue or incorrect component access
 
-## Recent Changes (v2.0)
+### 🔧 SOLUTION IMPLEMENTED
+Fixed the wearer detection issue by adding a new overload:
 
-### Portal Auto-Teleport Debug (Latest)
+**CompApparelPortalGun.cs:**
+```csharp
+// New overload that accepts the pawn directly (for when ParentHolder fails)
+public bool TryPortalTo(IntVec3 destination, Pawn wearer)
+{
+    Log.Message(string.Format("[Rick Portal] CompApparelPortalGun.TryPortalTo(IntVec3, Pawn) called with destination: {0}, wearer: {1}", destination, wearer.LabelShort));
+    LocalTargetInfo target = new LocalTargetInfo(destination);
+    return UsePortalGun(wearer, target);
+}
+```
+
+**RickPortalPathPatch.cs:**
+```csharp
+// Use the apparel component's portal method with pawn parameter
+if (apparelPortalComp.TryPortalTo(localDest, pawn))
+```
+
+**Status**: ✅ Compiled successfully - ready for testing!
+
+### Expected New Log Output
+```
+[Rick Portal] AI Using apparel portal gun component for dest: (68,0,146)
+[Rick Portal] CompApparelPortalGun.TryPortalTo(IntVec3, Pawn) called with destination: (68,0,146), wearer: ColonistName
+[Rick Portal] UsePortalGun called - wearer: ColonistName, target: ...
+[Rick Portal] Target validation passed
+[Rick Portal] CanHitTarget passed, attempting portal
+[Rick Portal] Pawn spawned successfully
+```
+
+### Next Action
+Test the portal gun now - the "No wearer found" error should be fixed!
+
+### Major Code Changes Made
+
+#### 1. Teleportation Method Fix (Previous Session)
+- **FIXED**: Changed from direct `pawn.Position = targetCell` to proper RimWorld teleportation
+- **Method**: DeSpawn → GenSpawn.Spawn → Notify_Teleported
+- **Status**: ✅ Implemented correctly
+
+#### 2. Extensive Debug Logging Added (Current Session)
+Added comprehensive logging to ALL portal-related methods:
+
+**CompApparelPortalGun.cs:**
+- `TryPortalTo(LocalTargetInfo)`: Logs method calls, wearer info, results
+- `TryPortalTo(IntVec3)`: Logs destination conversion
+- `UsePortalGun()`: Logs target validation, verb creation, all steps
+
+**Verb_CastAbilityRickPortal.cs:**
+- `TryPortalTo(IntVec3, Map)`: Logs inputs, validation, TryCastShot calls
+- `TryCastShot()`: Logs method entry, caster info, target details
+- **Teleportation section**: Wrapped in try-catch with step-by-step logging
+  - DeSpawn logging
+  - GenSpawn.Spawn logging  
+  - Post-teleportation cleanup logging
+  - Exception handling
+
+**Expected Log Output:**
+```
+[Rick Portal] CompApparelPortalGun.TryPortalTo(IntVec3) called with destination: (x,z)
+[Rick Portal] CompApparelPortalGun.TryPortalTo called with target: LocalTargetInfo
+[Rick Portal] UsePortalGun called - wearer: PawnName, target: ..., target.Cell: ...
+[Rick Portal] Created portal verb instance
+[Rick Portal] Initialized verb properties - about to validate target: ...
+[Rick Portal] Target validation passed
+[Rick Portal] CanHitTarget passed, attempting portal
+[Rick Portal] Verb.TryPortalTo called with destination: ...
+[Rick Portal] About to call TryCastShot...
+[Rick Portal] TryCastShot: Method entry
+[Rick Portal] TryCastShot: Caster is PawnName
+[Rick Portal] About to DeSpawn pawn...
+[Rick Portal] Pawn DeSpawned successfully
+[Rick Portal] About to GenSpawn.Spawn at (x,z)...
+[Rick Portal] Pawn spawned successfully
+```
+
+#### 3. Compilation Status
+- **Status**: ✅ Compiled successfully with all logging
+- **File**: `RickAndMortyBruh.dll` updated with debug version
+- **Ready**: For testing with detailed logging output
+
+### Next Steps
+1. **Test in-game** to capture detailed log sequence
+2. **Identify exact failure point** from comprehensive logging
+3. **Fix specific issue** based on log analysis
+4. **Remove excessive logging** once issue is resolved
+
+### Technical Implementation Details
+
+#### Portal Gun Mechanics
+- **Type**: Utility apparel (not weapon)
+- **Component**: `CompApparelPortalGun` 
+- **Verb**: `Verb_CastAbilityRickPortal`
+- **Auto-trigger**: Via `RickPortalPathPatch` for distances >15 blocks
+
+#### Teleportation Process
+1. **Target Validation**: Check bounds, standable cells
+2. **DeSpawn**: Remove pawn from current position
+3. **GenSpawn.Spawn**: Place pawn at new position with rotation
+4. **Cleanup**: StopDead(), Notify_Teleported(), visual effects
+
+#### Known Working Features
+- ✅ Portal gun appears as utility apparel
+- ✅ Gizmo button for manual portal use
+- ✅ Auto-portal detection for long distances
+- ✅ Target validation and clamping
+- ✅ Vaporization of target pawns
+- ❌ **FAILING**: Actual pawn teleportation (under investigation)
+
+### Debug Commands
+- **Compile**: `./compile_mod.bat`
+- **Test Location**: RimWorld with mod loaded
+- **Log Watch**: Look for "[Rick Portal]" prefix messages
+
+## Code Architecture
+
+### File Structure
+```
+Source/RickAndMortyBruh/
+├── CompApparelPortalGun.cs      (Apparel component)
+├── Verb_CastAbilityRickPortal.cs (Teleportation logic)  
+├── RickPortalPathPatch.cs       (Auto-portal patch)
+└── TargetingValidator_IgnoreFog.cs
+
+Defs/ThingDefs_Rick/
+└── RicksPortalGun.xml           (Apparel definition)
+```
+
+### Recent Bug Investigation
+- **Hypothesis**: Exception during DeSpawn/Spawn process
+- **Evidence**: "AI Apparel TryPortalTo failed" suggests UsePortalGun returns false
+- **Solution**: Added try-catch around teleportation with detailed logging
+- **Status**: Awaiting test results with new logging
 - **Fixed syntax errors**: Removed C# 6+ null conditional operators (?.) for C# 5 compatibility
 - **Added comprehensive debug logging**: Portal path patch now logs every step of the decision process
 - **Fixed method access**: Added `TryPortalTo()` method to `Verb_CastAbilityRickPortal` for manual portal triggering

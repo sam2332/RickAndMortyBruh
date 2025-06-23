@@ -150,13 +150,11 @@ namespace RickAndMortyBruh
                         if (localDest.x < -1000 || localDest.x > 1000 || localDest.z < -1000 || localDest.z > 1000)
                         {
                             Log.Error(string.Format("[Rick Portal] AI Destination coordinates corrupted before portal: {0} - aborting", localDest));
-                            return true;                        }
-
-                        Log.Message(string.Format("[Rick Portal] AI Using apparel portal gun component for dest: {0} (x:{1}, z:{2})",
+                            return true;                        }                        Log.Message(string.Format("[Rick Portal] AI Using apparel portal gun component for dest: {0} (x:{1}, z:{2})",
                             localDest, localDest.x, localDest.z));
 
-                        // Use the apparel component's portal method
-                        if (apparelPortalComp.TryPortalTo(localDest))
+                        // Use the apparel component's portal method with pawn parameter
+                        if (apparelPortalComp.TryPortalTo(localDest, pawn))
                         {
                             Log.Message(string.Format("[Rick Portal] AI Auto-portal triggered for {0} to {1}", pawn.LabelShort, localDest));
                             // Set cooldown to prevent immediate re-triggering
