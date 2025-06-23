@@ -50,7 +50,7 @@ namespace RickAndMortyBruh
                     };
                 }
             }
-        }        private void UsePortalGun(Pawn wearer, LocalTargetInfo target)
+        }        private bool UsePortalGun(Pawn wearer, LocalTargetInfo target)
         {
             Log.Message(string.Format("[Rick Portal] UsePortalGun called with target: {0}, Cell: {1} (x:{2},y:{3},z:{4}), IsValid: {5}, HasThing: {6}", 
                 target, target.Cell, target.Cell.x, target.Cell.y, target.Cell.z, target.IsValid, target.HasThing));
@@ -61,7 +61,7 @@ namespace RickAndMortyBruh
                 Log.Warning(string.Format("[Rick Portal] Invalid target coordinates: {0}, map size: {1}x{2}", 
                     target.Cell, wearer.Map.Size.x, wearer.Map.Size.z));
                 Messages.Message("Invalid target location", MessageTypeDefOf.RejectInput, false);
-                return;
+                return false;
             }
             
             // Create a temporary verb to handle the portal logic
@@ -72,15 +72,18 @@ namespace RickAndMortyBruh
             
             Log.Message(string.Format("[Rick Portal] About to validate and use portal with target: {0} (x:{1},y:{2},z:{3})", 
                 target.Cell, target.Cell.x, target.Cell.y, target.Cell.z));
-            
-            // Use the existing portal logic - don't set currentTarget manually, let TryPortalTo handle it
+              // Use the existing portal logic - don't set currentTarget manually, let TryPortalTo handle it
             if (portalVerb.ValidateTarget(target, true) && portalVerb.CanHitTarget(target))
             {
-                portalVerb.TryPortalTo(target);
+                bool result = portalVerb.TryPortalTo(target.Cell, wearer.Map);
+                Log.Message(string.Format("[Rick Portal] Portal attempt result: {0}", result));
+                return result;
             }
             else
             {
+                Log.Message("[Rick Portal] Portal validation or hit target check failed");
                 Messages.Message("Cannot portal to that location", MessageTypeDefOf.RejectInput, false);
+                return false;
             }
         }
 
@@ -98,9 +101,7 @@ namespace RickAndMortyBruh
                 }
             }
             return false;
-        }
-
-        // Helper method to get the portal gun comp from a pawn
+        }        // Helper method to get the portal gun comp from a pawn
         public static CompApparelPortalGun GetPortalGunComp(Pawn pawn)
         {
             if (pawn == null || pawn.apparel == null || pawn.apparel.WornApparel == null)
@@ -113,7 +114,16 @@ namespace RickAndMortyBruh
                     return apparel.GetComp<CompApparelPortalGun>();
                 }
             }
-            return null;
+            return null;        }
+
+        // Public method to trigger portal teleportation from code
+        public bool TryPortalTo(LocalTargetInfo target)
+        {
+            Pawn wearer = parent.ParentHolder as Pawn;
+            if (wearer == null)
+                return false;
+
+            return UsePortalGun(wearer, target);
         }
     }
 }
