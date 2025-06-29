@@ -1,9 +1,9 @@
 <Defs>
-  <!-- Portal Gun as Apparel -->
+  <!-- Portal Gun as Apparel - Speed Boost Version -->
   <ThingDef ParentName="ApparelBase">
     <defName>RickPortalGunApparel</defName>
-    <label>portal gun</label>
-    <description>A weird tech device that opens rifts in space-time. Can teleport you instantly. Worn as a utility device that even pacifists can use.</description>
+    <label>portal gun (speed demon edition)</label>
+    <description>A shitty version of Rick's portal gun that just makes you run really, REALLY fast. Like, stupidly fast. WUBBA LUBBA DUB DUB!</description>
     <graphicData>
       <texPath>Things/Item/Equipment/PortalGun</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -19,6 +19,9 @@
       <Insulation_Heat>0</Insulation_Heat>
       <EquipDelay>1</EquipDelay>
     </statBases>
+    <equippedStatOffsets>
+      <MoveSpeed>999999</MoveSpeed>
+    </equippedStatOffsets>
     <techLevel>Ultra</techLevel>
     <thingClass>Apparel</thingClass>
     <apparel>
@@ -42,47 +45,11 @@
       <li>TechHediff</li>
     </tradeTags>
     <comps>
-      <li Class="RickAndMortyBruh.CompProperties_ApparelPortalGun"/>
+      <li Class="RickAndMortyBruh.CompProperties_ApparelSpeedBoost">
+        <moveSpeedMultiplier>1000000</moveSpeedMultiplier>
+      </li>
     </comps>
   </ThingDef>
 
-  <!-- Keep old weapon version for compatibility, but mark it obsolete -->
-  <ThingDef ParentName="BaseWeapon">
-    <defName>RickPortalGun</defName>
-    <label>portal gun (weapon - obsolete)</label>
-    <description>A weird tech device that opens rifts in space-time. This weapon version is obsolete - use the apparel version instead.</description>
-    <graphicData>
-      <texPath>Things/Item/Equipment/PortalGun</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <statBases>
-      <Mass>2.5</Mass>
-      <MarketValue>1500</MarketValue>
-    </statBases>
-    <techLevel>Ultra</techLevel>
-    <thingClass>ThingWithComps</thingClass>
-    <thingCategories>
-      <li>Weapons</li>
-    </thingCategories>
-    <tradeTags>
-      <li>Weapon</li>
-      <li>TechHediff</li>
-    </tradeTags>
-    <verbs>
-      <li>
-        <verbClass>RickAndMortyBruh.Verb_CastAbilityRickPortal</verbClass>
-        <hasStandardCommand>true</hasStandardCommand>
-        <range>999</range>
-        <warmupTime>0.5</warmupTime>
-        <targetParams>
-          <canTargetLocations>true</canTargetLocations>
-          <canTargetPawns>true</canTargetPawns>
-          <canTargetBuildings>false</canTargetBuildings>
-        </targetParams>
-      </li>
-    </verbs>
-    <weaponTags>
-      <li>TechPortal</li>
-    </weaponTags>
-  </ThingDef>
+
 </Defs>
