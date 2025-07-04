@@ -19,6 +19,7 @@ namespace RickAndMortyBruh
 
     public class CompApparelSpeedBoost : ThingComp
     {
+        public bool IsActive = true; // Whether the speed boost is active
         public CompProperties_ApparelSpeedBoost Props
         {
             get
@@ -51,7 +52,7 @@ namespace RickAndMortyBruh
             if (Apparel == null) return;
             
             Pawn wearer = Apparel.Wearer;
-            if (wearer != null && wearer.Spawned)
+            if (wearer != null && wearer.Spawned && IsActive)
             {
                 // The speed boost is handled by the stat offset in the XML def
                 // This is just for any additional effects or logging
@@ -118,12 +119,21 @@ namespace RickAndMortyBruh
             // Add a fun gizmo button for flavor
             yield return new Command_Action
             {
-                defaultLabel = "WUBBA LUBBA DUB DUB!",
-                defaultDesc = "Express your excitement about moving at light speed!",
-                icon = ContentFinder<Texture2D>.Get("UI/Commands/LaunchShip", true),
+                defaultLabel = "Toggle Portal Usage",
+                defaultDesc = "Toggle the use of the portal gun to travel at light speed.",
+                icon = ContentFinder<Texture2D>.Get("UI/Commands/PortalGun", true),
                 action = delegate
                 {
-                    Messages.Message(string.Format("{0}: WUBBA LUBBA DUB DUB! I'M MOVING AT LIGHT SPEED!", Apparel.Wearer.LabelShort), MessageTypeDefOf.PositiveEvent);
+                    IsActive = !IsActive;
+                    if (IsActive)
+                    {
+                        Messages.Message("Portal gun activated! Prepare for light speed travel!", Apparel.Wearer, MessageTypeDefOf.PositiveEvent);
+                    }
+                    else
+                    {
+                        Messages.Message("Portal gun deactivated. You are now back to normal speed.", Apparel.Wearer, MessageTypeDefOf.NegativeEvent);
+                    }
+
                 }
             };
         }
